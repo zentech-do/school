@@ -14,3 +14,5 @@
 # Bỏ qua file cấu hình nhạy cảm
 .terraformrc
 terraform.tfvars
+
+*.hcl
