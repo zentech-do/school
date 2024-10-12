@@ -1,0 +1,16 @@
+# Bỏ qua các file Terraform tạm thời
+*.tfstate
+*.tfstate.*
+
+# Bỏ qua các file backup của Terraform
+*.backup
+
+# Thư mục chứa các kế hoạch đã tạo
+.terraform/
+
+# Bỏ qua file plan
+*.tfplan
+
+# Bỏ qua file cấu hình nhạy cảm
+.terraformrc
+terraform.tfvars
