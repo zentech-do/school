@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  BucketName:
+    Type: String
+    Description: "The name of the S3 bucket where the nested stack templates are stored."
+
+Resources:
+  VPCStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${BucketName}/vpc.yaml"
+
+  NaTGatewayStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${BucketName}/nat_gateway.yaml"
+      Parameters:
+        PrivateSubnetId: !GetAtt VPCStack.Outputs.PrivateSubnetId
+
+  RouteTableStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${BucketName}/route_table.yaml"
+      Parameters:
+        VPCId: !GetAtt VPCStack.Outputs.VPCId
+        PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnetId
+        InternetGatewayId: !GetAtt VPCStack.Outputs.InternetGatewayId
+        PrivateSubnetId: !GetAtt VPCStack.Outputs.PrivateSubnetId
+        NatGatewayId: !GetAtt NaTGatewayStack.Outputs.NatGatewayId
+
+  SecurityGroupStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${BucketName}/sg.yaml"
+      Parameters:
+        VPCId: !GetAtt VPCStack.Outputs.VPCId
+
+  EC2InstanceStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${BucketName}/ec2.yaml"
+      Parameters:
+        VPCId: !GetAtt VPCStack.Outputs.VPCId
+        PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnetId
+        PrivateSubnetId: !GetAtt VPCStack.Outputs.PrivateSubnetId
+        PublicInstanceSecurityGroupId: !GetAtt SecurityGroupStack.Outputs.PublicInstanceSecurityGroupId
+        PrivateInstanceSecurityGroupId: !GetAtt SecurityGroupStack.Outputs.PrivateInstanceSecurityGroupId
+        KeyName: "21522490"
