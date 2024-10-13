@@ -36,5 +36,5 @@ variable "private_ami_id" {
 
 variable "instance_type" {
   type    = string
-  default = "t2.micro"  # Ví dụ về loại instance
+  default = "t2.micro"  
 }
