@@ -10,3 +10,6 @@ module "vpc" {
   public_subnet     = ["10.0.3.0/24", "10.0.4.0/24"]
   availability_zone = ["us-west-2a", "us-west-2b"]
 }
+output "vpc_id" {
+  value = module.vpc.vpc_id
+}
