@@ -114,7 +114,7 @@ resource "aws_security_group" "public_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["171.252.188.186/32"] # Allow SSH from anywhere
+    cidr_blocks = ["YOUR IP"] # Allow SSH from 
   }
 
   egress {
