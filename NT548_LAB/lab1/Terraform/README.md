@@ -27,10 +27,9 @@ Terraform/
 │       ├── outputs.tf
 │       └── variables.tf
 ├── outputs.tf               # Outputs for resources created by the modules
-├── README.md                # Project documentation
-├── terraform.tfstate        # Terraform state file (auto-generated)
-├── terraform.tfstate.backup # Backup state file (auto-generated)
-└── variables.tf             # Input variables for the main module
+├── variables.tf             # Input variables for the main module
+└── README.md                # Project documentation
+README.md                # Project documentation
 ```
 ## Prerequisites
 Before using this Terraform configuration, ensure you have the following:
