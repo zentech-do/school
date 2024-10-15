@@ -16,7 +16,7 @@ Resources:
     Properties:
       TemplateURL: !Sub "https://s3.amazonaws.com/${BucketName}/nat_gateway.yaml"
       Parameters:
-        PrivateSubnetId: !GetAtt VPCStack.Outputs.PrivateSubnetId
+        PublicSubnetId: !GetAtt VPCStack.Outputs.PublicSubnetId
 
   RouteTableStack:
     Type: AWS::CloudFormation::Stack
