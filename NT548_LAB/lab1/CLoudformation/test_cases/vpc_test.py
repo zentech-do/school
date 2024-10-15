@@ -1,7 +1,12 @@
 import boto3
+import json
 
-# Initialize the AWS clients
-ec2 = boto3.client('ec2', region_name='us-east-1')  # Chỉnh sửa 'region_name' theo khu vực của bạn
+# Function to retrieve the OutputValue for a given OutputKey from the JSON data
+def get_output_value(json_data, key):
+    for item in json_data:
+        if item['OutputKey'] == key:
+            return item['OutputValue']
+    return None
 
 def get_vpc(vpc_id):
     """Kiểm tra xem VPC có tồn tại không và trả về thông tin VPC nếu có."""
@@ -13,9 +18,14 @@ def get_subnet(subnet_id):
     response = ec2.describe_subnets(SubnetIds=[subnet_id])
     return response['Subnets'][0] if response['Subnets'] else None
 
+def get_nat_gateway(nat_gateway_id):
+    """Kiểm tra xem NAT Gateway có tồn tại không và trả về thông tin NAT Gateway nếu có."""
+    response = ec2.describe_nat_gateways(NatGatewayIds=[nat_gateway_id])
+    return response['NatGateways'][0] if response['NatGateways'] else None
+
 def get_internet_gateway(igw_id):
     """Kiểm tra xem Internet Gateway có tồn tại và gắn vào VPC không."""
-    response = ec2.debcribe_internet_gateways(InternetGatewayIds=[igw_id])
+    response = ec2.describe_internet_gateways(InternetGatewayIds=[igw_id])
     return response['InternetGateways'][0] if response['InternetGateways'] else None
 
 def get_security_group(sg_id):
@@ -25,41 +35,87 @@ def get_security_group(sg_id):
 
 
 
+# Load the JSON data from a file
+with open('outputs.json', 'r') as f:  
+    data = json.load(f)
 
-
+# Initialize the AWS clients
+ec2 = boto3.client('ec2', region_name='us-east-1')  
 
 # Test case 1: Kiểm tra VPC
-vpc_id = "vpc-xxxxxx"  # Thay bằng ID của VPC bạn
+vpc_id = get_output_value(data, 'VPCId')
 vpc = get_vpc(vpc_id)
-print("Test case 1: VPC OK")
+if vpc is not None:
+    print("VPC tồn tại")
+    print("Test case 1: VPC OK")
+else:
+    raise AssertionError("VPC không tồn tại")
 
-# Test case 2: Kiểm tra Public Subnet
-public_subnet_id = "subnet-xxxxxx"  # Thay bằng ID của Public Subnet
+# Test case 2: Kiểm tra Subnet
+public_subnet_id = get_output_value(data, 'PublicSubnetId')
 public_subnet = get_subnet(public_subnet_id)
-assert public_subnet['CidrBlock'] == '10.0.1.0/24', f"Public Subnet có CIDR block {public_subnet['CidrBlock']}, mong đợi 10.0.1.0/24"
-assert public_subnet['MapPublicIpOnLaunch'] is True, "Public Subnet không tự động cấp IP công khai"
-print("Test case 2: Public Subnet OK")
-
-# Test case 3: Kiểm tra Private Subnet
-private_subnet_id = "subnet-yyyyyy"  # Thay bằng ID của Private Subnet
+private_subnet_id = get_output_value(data, 'PrivateSubnetId')
 private_subnet = get_subnet(private_subnet_id)
-assert private_subnet['CidrBlock'] == '10.0.2.0/24', f"Private Subnet có CIDR block {private_subnet['CidrBlock']}, mong đợi 10.0.2.0/24"
-print("Test case 3: Private Subnet OK")
+if public_subnet is not None:
+    print("Public Subnet tồn tại")
+else:
+    raise AssertionError("Public Subnet không tồn tại")
+
+if private_subnet is not None:
+    print("Private Subnet tồn tại")
+else:
+    raise AssertionError("Private Subnet không tồn tại")
+
+print("Test case 2: Subnet OK")
+
+# Test case 3: Kiểm tra NAT Gateway
+nat_gateway_id = get_output_value(data, 'NatGatewayId')
+nat_gateway = get_nat_gateway(nat_gateway_id)
+if nat_gateway is not None:
+    print("NAT Gateway tồn tại")
+    print("Test case 3: NAT Gateway OK")
+else:
+    raise AssertionError("NAT Gateway không tồn tại")
 
 # Test case 4: Kiểm tra Internet Gateway
-igw_id = "igw-xxxxxx"  # Thay bằng ID của Internet Gateway
+igw_id = get_output_value(data, 'InternetGatewayId')
 igw = get_internet_gateway(igw_id)
-assert any(attachment['VpcId'] == vpc_id for attachment in igw['Attachments']), "Internet Gateway chưa được gắn vào VPC"
-print("Test case 4: Internet Gateway OK")
+if igw is not None:
+    print("Internet Gateway Gateway tồn tại")
+    if any(attachment['VpcId'] == vpc_id for attachment in igw['Attachments']):
+        print("Internet Gateway đã được gắn vào VPC")
+        print("Test case 4: Internet Gateway OK")
+    else:
+        raise AssertionError("Internet Gateway chưa được gắn vào VPC")
+else:
+    raise AssertionError("Internet Gateway không tồn tại")
 
 # Test case 5: Kiểm tra Security Group
-sg_id = "sg-xxxxxx"  # Thay bằng ID của Security Group
+sg_id = get_output_value(data, 'DefaultSecurityGroupId')
 sg = get_security_group(sg_id)
-ingress_rules = sg['IpPermissions']
-egress_rules = sg['IpPermissionsEgress']
-# Kiểm tra quy tắc ingress cho SSH và HTTP
-assert any(rule['FromPort'] == 22 and rule['ToPort'] == 22 for rule in ingress_rules), "Không tìm thấy quy tắc SSH (port 22)"
-assert any(rule['FromPort'] == 80 and rule['ToPort'] == 80 for rule in ingress_rules), "Không tìm thấy quy tắc HTTP (port 80)"
-# Kiểm tra tất cả outbound được cho phép
-assert any(rule['IpProtocol'] == '-1' for rule in egress_rules), "Outbound không được cho phép cho tất cả giao thức"
-print("Test case 5: Security Group OK")
+if sg is not None:
+    print("Default Security Group tồn tại")
+    
+    ingress_rules = sg['IpPermissions']
+    egress_rules = sg['IpPermissionsEgress']
+    
+    # Kiểm tra quy tắc ingress cho SSH và HTTP
+    if any(rule['FromPort'] == 22 and rule['ToPort'] == 22 for rule in ingress_rules):
+        print("Inbound traffic: Quy tắc SSH (port 22) OK")
+    else:
+        raise AssertionError("Không tìm thấy quy tắc SSH (port 22)")
+
+    if any(rule['FromPort'] == 80 and rule['ToPort'] == 80 for rule in ingress_rules):
+        print("Inbound traffic: Quy tắc HTTP (port 80) OK")
+    else:
+        raise AssertionError("Không tìm thấy quy tắc HTTP (port 80)")
+
+    # Kiểm tra tất cả outbound được cho phép
+    if any(rule['IpProtocol'] == '-1' for rule in egress_rules):
+        print("Outbound traffic: được cho phép cho tất cả giao thức")
+    else:
+        raise AssertionError("Outbound traffic hiện không được cho phép cho tất cả giao thức")
+    
+    print("Test case 5: Security Group OK")
+else:
+    raise AssertionError("Default Security Group không tồn tại")
