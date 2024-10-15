@@ -33,8 +33,8 @@ Terraform/
 ## Prerequisites
 Before using this Terraform configuration, ensure you have the following:
 
-* Terraform installed on your local machine. You can download it [here](https://developer.hashicorp.com/terraform/install).
-* AWS CLI installed and configured with your credentials. Refer to [AWS CLI documentation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) for help.
+* Terraform installed on your local machine. You can download it here.
+* AWS CLI installed and configured with your credentials. Refer to AWS CLI documentation for help.
 
 ## Usage
 ### Step 1: Initialize the Terraform environment
