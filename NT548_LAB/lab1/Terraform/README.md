@@ -2,6 +2,7 @@
 This project provides a modular setup for creating a complete AWS infrastructure using Terraform. The structure includes separate modules for VPC, subnets, route tables, security groups, and EC2 instances. Each module is designed for flexibility and reusability.
 
 ## Project Structure
+```{.no-copy}
 Terraform/
 ├── main.tf                  # Main configuration that orchestrates the modules
 ├── modules/
@@ -30,11 +31,13 @@ Terraform/
 ├── terraform.tfstate        # Terraform state file (auto-generated)
 ├── terraform.tfstate.backup # Backup state file (auto-generated)
 └── variables.tf             # Input variables for the main module
+```
 ## Prerequisites
 Before using this Terraform configuration, ensure you have the following:
 
-    * Terraform installed on your local machine. You can download it here.
-    * AWS CLI installed and configured with your credentials. Refer to AWS CLI documentation for help.
+* Terraform installed on your local machine. You can download it here.
+* AWS CLI installed and configured with your credentials. Refer to AWS CLI documentation for help.
+
 ## Usage
 ### Step 1: Initialize the Terraform environment
 Before applying the configuration, initialize your Terraform environment by running the following command in the project directory:
