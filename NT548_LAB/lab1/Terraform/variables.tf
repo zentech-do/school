@@ -57,3 +57,9 @@ variable "key_name" {
   type        = string
   default = "demo"
 }
+
+variable "local_ip"{
+  description = "ADD YOUR LOCAL IP ADDRESS"
+  type = string
+  default = "0.0.0.0"
+}
