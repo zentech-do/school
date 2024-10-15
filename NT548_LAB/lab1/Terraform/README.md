@@ -2,7 +2,7 @@
 This project provides a modular setup for creating a complete AWS infrastructure using Terraform. The structure includes separate modules for VPC, subnets, route tables, security groups, and EC2 instances. Each module is designed for flexibility and reusability.
 
 ## Project Structure
-```{.no-copy}
+```{ .text .no-copy}
 Terraform/
 ├── main.tf                  # Main configuration that orchestrates the modules
 ├── modules/
@@ -29,7 +29,6 @@ Terraform/
 ├── outputs.tf               # Outputs for resources created by the modules
 ├── variables.tf             # Input variables for the main module
 └── README.md                # Project documentation
-README.md                # Project documentation
 ```
 ## Prerequisites
 Before using this Terraform configuration, ensure you have the following:
