@@ -2,62 +2,50 @@ provider "aws" {
   region = "us-west-2"
 }
 
+# Module VPC
 module "vpc" {
-  source = "./vpc"
+  source = "./modules/vpc"  # Đảm bảo đường dẫn đến module là chính xác
 
-  vpc_cidr_block    = "10.0.0.0/16"
-  private_subnet    = ["10.0.1.0/24", "10.0.2.0/24"]
-  public_subnet     = ["10.0.3.0/24", "10.0.4.0/24"]
-  availability_zone = ["us-west-2a", "us-west-2b"]
-}
-output "vpc_id" {
-  value = module.vpc.vpc_id
+  vpc_cidr_block = "10.0.0.0/16"
+  vpc_name       = "MyVPC"  # Thêm tên cho VPC nếu cần
 }
 
-output "private_subnet_ids" {
-  value = module.vpc.private_subnet_ids
+# Module Subnets
+module "subnets" {
+  source = "./modules/subnets"
+
+  vpc_id              = module.vpc.vpc_id
+  public_subnet_cidrs = var.public_subnet
+  private_subnet_cidrs = var.private_subnet
+  availability_zones   = var.availability_zones
 }
 
-output "public_subnet_ids" {
-  value = module.vpc.public_subnet_ids
+# Module Security Groups
+module "security_groups" {
+  source = "./modules/security_groups"
+
+  vpc_id = module.vpc.vpc_id
 }
 
-output "public_instance_ids" {
-  value = module.vpc.public_instance_ids
+# Module Routables
+module "routables" {
+  source = "./modules/routables"
+
+  vpc_id          = module.vpc.vpc_id
+  public_subnet_ids = module.subnets.public_subnet_ids
+  private_subnet_ids = module.subnets.private_subnet_ids
 }
 
-output "private_instance_ids" {
-  value = module.vpc.private_instance_ids
-}
+# Module EC2 Instances
+module "ec2_instances" {
+  source = "./modules/ec2_instances"
 
-output "public_instance_public_ips" {
-  value = module.vpc.public_instance_public_ips
-}
-
-output "private_instance_private_ips" {
-  value = module.vpc.private_instance_private_ips
-}
-
-output "public_security_group_id" {
-  value = module.vpc.public_security_group_id
-}
-
-output "private_security_group_id" {
-  value = module.vpc.private_security_group_id
-}
-
-output "internet_gateway_id" {
-  value = module.vpc.internet_gateway_id
-}
-
-output "nat_gateway_id" {
-  value = module.vpc.nat_gateway_id
-}
-
-output "public_route_table_id" {
-  value = module.vpc.public_route_table_id
-}
-
-output "private_route_table_id" {
-  value = module.vpc.private_route_table_id
+  public_subnet_ids  = module.subnets.public_subnet_ids
+  private_subnet_ids = module.subnets.private_subnet_ids
+  public_ami_id     = var.public_ami_id
+  private_ami_id    = var.private_ami_id
+  instance_type     = var.instance_type
+  key_name          = var.key_name
+  public_sg_id      = module.security_groups.public_sg_id
+  private_sg_id     = module.security_groups.private_sg_id
 }
