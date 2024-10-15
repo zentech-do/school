@@ -1,0 +1,74 @@
+[
+  {
+    "OutputKey": "BucketName",
+    "OutputValue": "lab1-21522490-bucket"
+  },
+  {
+    "OutputKey": "StackName",
+    "OutputValue": "lab1-21522490-stack"
+  },
+  {
+    "OutputKey": "PublicInstanceId",
+    "OutputValue": "i-0faae40de46e8a2a8"
+  },
+  {
+    "OutputKey": "PrivateInstanceId",
+    "OutputValue": "i-0e8feaf583441dd39"
+  },
+  {
+    "OutputKey": "NatGatewayId",
+    "OutputValue": "nat-022aea0cf537d34c0"
+  },
+  {
+    "OutputKey": "PrivateRouteTableId",
+    "OutputValue": "rtb-011f6c3248db4c87c"
+  },
+  {
+    "OutputKey": "PrivateRouteId",
+    "OutputValue": "rtb-011f6c3248db4c87c|0.0.0.0/0"
+  },
+  {
+    "OutputKey": "PublicSubnetRouteTableAssociationId",
+    "OutputValue": "rtbassoc-00c48f00d33592c69"
+  },
+  {
+    "OutputKey": "PublicRouteId",
+    "OutputValue": "rtb-034100585e6d52c85|0.0.0.0/0"
+  },
+  {
+    "OutputKey": "PublicRouteTableId",
+    "OutputValue": "rtb-034100585e6d52c85"
+  },
+  {
+    "OutputKey": "PrivateSubnetRouteTableAssociationId",
+    "OutputValue": "rtbassoc-02ed34c0cda5672c9"
+  },
+  {
+    "OutputKey": "PrivateInstanceSecurityGroupId",
+    "OutputValue": "sg-07e4204fa04ca1cdf"
+  },
+  {
+    "OutputKey": "PublicInstanceSecurityGroupId",
+    "OutputValue": "sg-0d2d749cfa6014502"
+  },
+  {
+    "OutputKey": "InternetGatewayId",
+    "OutputValue": "igw-011180b6f03e2a9d7"
+  },
+  {
+    "OutputKey": "VPCId",
+    "OutputValue": "vpc-00c2763ce46a3551c"
+  },
+  {
+    "OutputKey": "PublicSubnetId",
+    "OutputValue": "subnet-0f7ca12ae1abc2b34"
+  },
+  {
+    "OutputKey": "PrivateSubnetId",
+    "OutputValue": "subnet-0d6576ce09d13cb6d"
+  },
+  {
+    "OutputKey": "DefaultSecurityGroupId",
+    "OutputValue": "sg-0a399a024f5813dd6"
+  }
+]
