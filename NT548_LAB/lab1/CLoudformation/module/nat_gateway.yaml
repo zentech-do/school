@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Parameters:
-  PrivateSubnetId:
+  PublicSubnetId:
     Type: String
-    Description: "The ID of the private subnet where the NAT Gateway will be created."
+    Description: "The ID of the public subnet where the NAT Gateway will be created."
 
 Resources:
   # Create an Elastic IP for the NAT Gateway
@@ -17,7 +17,7 @@ Resources:
     Type: AWS::EC2::NatGateway
     Properties:
       AllocationId: !GetAtt NatGatewayEIP.AllocationId
-      SubnetId: !Ref PrivateSubnetId
+      SubnetId: !Ref PublicSubnetId
       Tags:
         - Key: Name
           Value: NatGateway

@@ -9,29 +9,28 @@ Resources:
   PublicInstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: "Allow SSH and HTTP traffic for the public instance."
+      GroupDescription: "Allow SSH traffic for the public instance."
       VpcId: !Ref VPCId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: 0.0.0.0/0 # Allow SSH from anywhere
-        - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
-          CidrIp: 0.0.0.0/0 # Allow HTTP traffic from anywhere
+          CidrIp: 0.0.0.0/0
 
-  # Security Group for Private Instance - allows SSH only from the Public Instance
   PrivateInstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: "Allow SSH traffic from the public instance."
+      GroupDescription: "Allow SSH and HTTPs traffic from the public instance."
       VpcId: !Ref VPCId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
           SourceSecurityGroupId: !Ref PublicInstanceSecurityGroup # Only allow SSH from the public instance's SG
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          SourceSecurityGroupId: !Ref PublicInstanceSecurityGroup # Only allow HTTPs from the public instance's SG
 
 Outputs:
   PublicInstanceSecurityGroupId:

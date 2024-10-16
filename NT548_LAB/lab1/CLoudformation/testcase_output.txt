@@ -1,0 +1,45 @@
+-----------------------------------vpc testing-----------------------------------------
+VPC tồn tại
+Test case 1: VPC OK
+Public Subnet tồn tại
+Private Subnet tồn tại
+Test case 2: Subnet OK
+NAT Gateway tồn tại
+Test case 3: NAT Gateway OK
+Internet Gateway Gateway tồn tại
+Internet Gateway đã được gắn vào VPC
+Test case 4: Internet Gateway OK
+Default Security Group tồn tại
+Inbound traffic: Chỉ cho phép port [22, 80] OK
+Outbound traffic: được cho phép cho tất cả giao thức
+Test case 5: Security Group OK
+-----------------------------------route_table testing-----------------------------------------
+Public Route Table tồn tại
+Public Route Table được gắn với Public Subnet
+Public Route Table có route tới 0.0.0.0/0 qua Internet Gateway
+Test case 1: Public Route Table OK
+Private Route Table tồn tại
+Private Route Table được gắn với Private Subnet
+Private Route Table có route tới 0.0.0.0/0 qua NAT Gateway
+Test case 2: Private Route Table OK
+-----------------------------------ec2 testing-----------------------------------------
+Public EC2 Instance tồn tại
+Public EC2 Instance đang chạy
+Public EC2 Instance có địa chỉ Public IP
+Test case 1: Public EC2 Instance OK
+Private EC2 Instance tồn tại
+Private EC2 Instance đang chạy
+Private EC2 Instance không có địa chỉ Public IP
+Test case 2: Private EC2 Instance OK
+-----------------------------------sg testing-----------------------------------------
+Public EC2 Security Group tồn tại
+Inbound traffic: Chỉ cho phép port 22 OK
+Public Instance không thể được truy cập từ máy local thông qua HTTP
+Public Instance có thể được truy cập từ máy local thông qua SSH
+Public Instance có thể truy cập tới google.com
+Test 1: Public Security Group OK
+Private EC2 Security Group tồn tại
+Inbound traffic: Chỉ cho phép port [22, 80] OK
+Private Instance có thể được truy cập từ Public Instance thông qua SSH
+Private Instance có thể truy cập tới google.com
+Test 2 Private Security Group OK
