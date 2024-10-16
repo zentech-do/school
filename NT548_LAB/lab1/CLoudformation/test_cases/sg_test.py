@@ -100,7 +100,8 @@ def upload_files_to_instance(ssh, local_file, remote_path='/home/ec2-user/'):
         if [ -f '{file_path}' ]; then 
             echo 'File exists'; 
         else 
-            echo 'File does not exist'; fi
+            echo 'File does not exist'; 
+        fi
     """
     output, error = execute_ssh_command(ssh,command)
     # print(f"SSH Output: {output}")
@@ -236,13 +237,18 @@ if private_sg is not None:
             output, error = execute_ssh_command(ssh, command)
             # print(f"SSH Output: {output}")
             # print(f"SSH Error: {error}")
-        
-        command = f"ssh -o StrictHostKeyChecking=no -i '{file_path}' ec2-user@{private_ip} 'echo SSH access to private instance is OK'"
+            
+        command = f"ssh-keygen -R {private_ip}"
         output, error = execute_ssh_command(ssh, command)
         # print(f"SSH Output: {output}")
         # print(f"SSH Error: {error}")
         
-        if error:
+        command = f"ssh -o StrictHostKeyChecking=no -i '{file_path}' ec2-user@{private_ip} 'echo SSH access OK'"
+        output, error = execute_ssh_command(ssh, command)
+        # print(f"SSH Output: {output}")
+        # print(f"SSH Error: {error}")
+        
+        if "SSH access OK" not in output:
             raise AssertionError("Private Instance không thể được truy cập từ Public Instance thông qua SSH")
         else:
             print("Private Instance có thể được truy cập từ Public Instance thông qua SSH" )
@@ -251,6 +257,7 @@ if private_sg is not None:
             output, error = execute_ssh_command(ssh, command)
             # print(f"SSH Output: {output}")
             # print(f"SSH Error: {error}")
+            
             if "200 OK" in output:
                 print("Private Instance có thể truy cập tới google.com")
             else:
