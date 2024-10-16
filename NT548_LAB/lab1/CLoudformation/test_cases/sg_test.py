@@ -138,33 +138,51 @@ public_sg = get_security_group(public_sg_id)
 if public_sg is not None:
     print("Public EC2 Security Group tồn tại")
     
+    allowed_ports = 22
+
+    ingress_rules = public_sg['IpPermissions']
+    for rule in ingress_rules:
+        from_port = rule.get('FromPort')
+        to_port = rule.get('ToPort')
+        
+        # Disallow port ranges, only specific ports 22 and 80 should be allowed
+        if from_port != to_port:
+            raise AssertionError(f"SG đang cho phép các port không phải {allowed_ports} hoặc đang sử dụng port range từ {from_port} đến {to_port}")
+
+        # Check if the port is neither 22 nor 80
+        if from_port != allowed_ports:
+            raise AssertionError(f"SG đang cho phép port {from_port}, không phải port {allowed_ports}")
+        
+        print(f"Inbound traffic: Chỉ cho phép port {allowed_ports} OK")
+    
+    
     public_instance_id = get_output_value(data, 'PublicInstanceId')
     public_ip = get_public_ip(public_instance_id)
     
     # test HTTPs 
     status = send_http_request_from_local(public_ip)
     if status != 200:
-        print("Public Instance không thể truy cập từ bên ngoài thông qua HTTP")
+        print("Public Instance không thể được truy cập từ máy local thông qua HTTP")
     else:
-        raise AssertionError("Public Instance có thể truy cập từ bên ngoài thông qua HTTP")
+        raise AssertionError("Public Instance có thể được truy cập từ máy local thông qua HTTP")
 
     
     # test SSH
     ssh = establish_ssh_connection(public_ip)
     if ssh: 
-        print("Public Instance có thể truy cập từ bên ngoài thông qua SSH")
+        print("Public Instance có thể được truy cập từ máy local thông qua SSH")
 
         command = "curl -I http://www.google.com"
         output, error = execute_ssh_command(ssh, command)
         if "200 OK" in output:
-            print("Public Instance có thể truy cập ra bên ngoài")
+            print("Public Instance có thể truy cập tới google.com")
         else:
-            raise AssertionError("Public Instance không thể truy cập ra bên ngoài") 
+            raise AssertionError("Public Instance không thể truy cập tới google.com") 
         
         close_ssh_connection(ssh)
             
     else:
-        raise AssertionError("Public Instance không thể truy cập từ bên ngoài thông qua SSH")   
+        raise AssertionError("Public Instance không thể truy cập từ máy local thông qua SSH")   
     
 else:
     raise AssertionError("Public EC2 Security Group không tồn tại")
@@ -178,6 +196,28 @@ private_sg = get_security_group(private_sg_id)
 
 if private_sg is not None:
     print("Private EC2 Security Group tồn tại")
+    
+    ingress_rules = private_sg['IpPermissions']
+    egress_rules = private_sg['IpPermissionsEgress']
+    
+    # Allowed inbound ports: SSH (22) and HTTP (80)
+    allowed_ports = [22, 80]
+    
+    # Kiểm tra quy tắc ingress cho SSH và HTTP
+    for rule in ingress_rules:
+        from_port = rule.get('FromPort')
+        to_port = rule.get('ToPort')
+        
+        # Disallow port ranges, only specific ports 22 and 80 should be allowed
+        if from_port != to_port:
+            raise AssertionError(f"SG đang cho phép các port không phải {allowed_ports} hoặc đang sử dụng port range từ {from_port} đến {to_port}")
+
+        # Check if the port is neither 22 nor 80
+        if from_port not in allowed_ports:
+            raise AssertionError(f"SG đang cho phép port {from_port}, không phải port {allowed_ports}")
+        
+    print(f"Inbound traffic: Chỉ cho phép port {allowed_ports} OK")
+        
     
     private_instance_id = get_output_value(data, 'PrivateInstanceId')
     private_ip = get_private_ip(private_instance_id)
@@ -212,9 +252,9 @@ if private_sg is not None:
             # print(f"SSH Output: {output}")
             # print(f"SSH Error: {error}")
             if "200 OK" in output:
-                print("Private Instance có thể truy cập ra bên ngoài")
+                print("Private Instance có thể truy cập tới google.com")
             else:
-                raise AssertionError("Private Instance không thể truy cập ra bên ngoài") 
+                raise AssertionError("Private Instance không thể truy cập tới google.com") 
     
         close_ssh_connection(ssh)
         

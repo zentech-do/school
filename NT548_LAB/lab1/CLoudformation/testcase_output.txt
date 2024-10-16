@@ -10,8 +10,7 @@ Internet Gateway Gateway tồn tại
 Internet Gateway đã được gắn vào VPC
 Test case 4: Internet Gateway OK
 Default Security Group tồn tại
-Inbound traffic: Quy tắc SSH (port 22) OK
-Inbound traffic: Quy tắc HTTP (port 80) OK
+Inbound traffic: Chỉ cho phép port [22, 80] OK
 Outbound traffic: được cho phép cho tất cả giao thức
 Test case 5: Security Group OK
 -----------------------------------route_table testing-----------------------------------------
@@ -34,11 +33,13 @@ Private EC2 Instance không có địa chỉ Public IP
 Test case 2: Private EC2 Instance OK
 -----------------------------------sg testing-----------------------------------------
 Public EC2 Security Group tồn tại
-Public Instance không thể truy cập từ bên ngoài thông qua HTTP
-Public Instance có thể truy cập từ bên ngoài thông qua SSH
-Public Instance có thể truy cập ra bên ngoài
+Inbound traffic: Chỉ cho phép port 22 OK
+Public Instance không thể được truy cập từ máy local thông qua HTTP
+Public Instance có thể được truy cập từ máy local thông qua SSH
+Public Instance có thể truy cập tới google.com
 Test 1: Public Security Group OK
 Private EC2 Security Group tồn tại
+Inbound traffic: Chỉ cho phép port [22, 80] OK
 Private Instance có thể được truy cập từ Public Instance thông qua SSH
-Private Instance có thể truy cập ra bên ngoài
+Private Instance có thể truy cập tới google.com
 Test 2 Private Security Group OK

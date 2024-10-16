@@ -93,29 +93,39 @@ else:
 # Test case 5: Kiểm tra Security Group
 sg_id = get_output_value(data, 'DefaultSecurityGroupId')
 sg = get_security_group(sg_id)
+
 if sg is not None:
     print("Default Security Group tồn tại")
     
     ingress_rules = sg['IpPermissions']
     egress_rules = sg['IpPermissionsEgress']
     
-    # Kiểm tra quy tắc ingress cho SSH và HTTP
-    if any(rule['FromPort'] == 22 and rule['ToPort'] == 22 for rule in ingress_rules):
-        print("Inbound traffic: Quy tắc SSH (port 22) OK")
-    else:
-        raise AssertionError("Không tìm thấy quy tắc SSH (port 22)")
-
-    if any(rule['FromPort'] == 80 and rule['ToPort'] == 80 for rule in ingress_rules):
-        print("Inbound traffic: Quy tắc HTTP (port 80) OK")
-    else:
-        raise AssertionError("Không tìm thấy quy tắc HTTP (port 80)")
-
-    # Kiểm tra tất cả outbound được cho phép
-    if any(rule['IpProtocol'] == '-1' for rule in egress_rules):
-        print("Outbound traffic: được cho phép cho tất cả giao thức")
-    else:
-        raise AssertionError("Outbound traffic hiện không được cho phép cho tất cả giao thức")
+    # Allowed inbound ports: SSH (22) and HTTP (80)
+    allowed_ports = [22, 80]
     
-    print("Test case 5: Security Group OK")
+    # Kiểm tra quy tắc ingress cho SSH và HTTP
+    for rule in ingress_rules:
+        from_port = rule.get('FromPort')
+        to_port = rule.get('ToPort')
+        
+        # Disallow port ranges, only specific ports 22 and 80 should be allowed
+        if from_port != to_port:
+            raise AssertionError(f"SG đang cho phép các port không phải {allowed_ports} hoặc đang sử dụng port range từ {from_port} đến {to_port}")
+
+        # Check if the port is neither 22 nor 80
+        if from_port not in allowed_ports:
+            raise AssertionError(f"SG đang cho phép port {from_port}, không phải port {allowed_ports}")
+        
+    print(f"Inbound traffic: Chỉ cho phép port {allowed_ports} OK")
+    
+    # Kiểm tra tất cả outbound được cho phép
+    for rule in egress_rules:
+        if rule['IpProtocol'] == '-1':
+            print("Outbound traffic: được cho phép cho tất cả giao thức")
+        else:
+            raise AssertionError("Outbound traffic hiện không được cho phép cho tất cả giao thức")
+        
 else:
     raise AssertionError("Default Security Group không tồn tại")
+
+print("Test case 5: Security Group OK")
