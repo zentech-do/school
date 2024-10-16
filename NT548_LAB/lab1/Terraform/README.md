@@ -1,40 +1,14 @@
 # Terraform Project for AWS Infrastructure
 This project provides a modular setup for creating a complete AWS infrastructure using Terraform. The structure includes separate modules for VPC, subnets, route tables, security groups, and EC2 instances. Each module is designed for flexibility and reusability.
 
-## Project Structure
-```{ .text .no-copy}
-Terraform/
-├── main.tf                  # Main configuration that orchestrates the modules
-├── modules/
-│   ├── ec2_instances/        # Module to create EC2 instances
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── variables.tf
-│   ├── routables/            # Module for NAT Gateway, Route Tables, and Associations
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── variables.tf
-│   ├── security_groups/       # Module for Security Groups
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── variables.tf
-│   ├── subnets/               # Module for Public and Private Subnets
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── variables.tf
-│   └── vpc/                   # Module for VPC creation
-│       ├── main.tf
-│       ├── outputs.tf
-│       └── variables.tf
-├── outputs.tf               # Outputs for resources created by the modules
-├── variables.tf             # Input variables for the main module
-└── README.md                # Project documentation
-```
+
 ## Prerequisites
 Before using this Terraform configuration, ensure you have the following:
 
-* Terraform installed on your local machine. You can download it here.
-* AWS CLI installed and configured with your credentials. Refer to AWS CLI documentation for help.
+* Terraform installed on your local machine. You can download it [here](https://developer.hashicorp.com/terraform/install).
+* AWS CLI installed and configured with your credentials. Refer to [AWS CLI documentation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) for help.
+* Make sure you have Python installed on your machine maybe Python or Python 3
+* Dowload requirement library pytest boto3 [here](https://pypi.org/project/boto3/)
 
 ## Usage
 ### Step 1: Initialize the Terraform environment
@@ -115,7 +89,14 @@ terraform output
 ```
 These outputs will provide important information such as EC2 public IPs for SSH access, subnet IDs, and more.
 
-### Step 6: Clean up
+### Step check test case
+
+```
+./scripts/run_tests_cases.sh
+```
+
+And check it in output_test.txt file 
+### Step 7 Clean up
 To destroy all resources created by this Terraform configuration, run:
 
 ```

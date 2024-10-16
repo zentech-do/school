@@ -1,0 +1,35 @@
+==================================================
+Đã tạo thành công các instance công cộng: i-0a04461f1e12898b2
+
+==================================================
+Đã tạo thành công các instance riêng tư: i-0fb0eaa5c8c2936c3
+
+==================================================
+Đã tạo thành công Internet Gateway: ID = igw-067e366dc8d350097, Tên = internet-gateway
+
+==================================================
+Đã tạo thành công NAT Gateway: ID = nat-00afc5dcc449ee962, Trạng thái = available
+
+==================================================
+Đã tạo thành công Route Table công khai: ID = rtb-0a937b3d1b2db9a00
+
+==================================================
+Đã tạo thành công Route Table riêng tư: ID = rtb-0c33de8878b7b6cdd
+
+==================================================
+Đã tạo thành công Security Group: ID = sg-0244ac7cf64ef614a, Tên = public-sg
+
+==================================================
+Security Group sg-0244ac7cf64ef614a có các quy tắc: [{'IpProtocol': 'tcp', 'FromPort': 22, 'ToPort': 22, 'UserIdGroupPairs': [], 'IpRanges': [{'Description': 'Allow SSH', 'CidrIp': '0.0.0.0/0'}], 'Ipv6Ranges': [], 'PrefixListIds': []}]
+
+==================================================
+Đã tạo thành công Security Group riêng tư: ID = sg-0f02d211262445a67, Tên = private-sg
+
+==================================================
+Security Group riêng tư sg-0f02d211262445a67 có các quy tắc: [{'IpProtocol': 'tcp', 'FromPort': 22, 'ToPort': 22, 'UserIdGroupPairs': [{'Description': 'Allow SSH from Public SG', 'UserId': '637423400491', 'GroupId': 'sg-0244ac7cf64ef614a'}], 'IpRanges': [], 'Ipv6Ranges': [], 'PrefixListIds': []}]
+
+Đã tạo thành công Public Subnet: ID = subnet-021c3d6208395f4a7, CIDR Block = 10.0.3.0/24, VPC ID = vpc-0d208e9709d9979c2
+Đã tạo thành công Private Subnet: ID = subnet-0164e3b514b05b48b, CIDR Block = 10.0.1.0/24, VPC ID = vpc-0d208e9709d9979c2
+==================================================
+Đã tạo thành công VPC: ID = vpc-0d208e9709d9979c2, CIDR Block = 10.0.0.0/16, Tên = MyVPC
+

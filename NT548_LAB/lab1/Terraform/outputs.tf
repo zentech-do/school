@@ -34,3 +34,12 @@ output "ig_id" {
 output "nat_gateway_id" {
   value = module.routables.nat_gateway_id
 }
+
+output "public_sg_id" {
+    value = module.security_groups.public_sg_id # Thay 'security_groups' bằng tên module nếu cần
+    description = "ID of the public security group from module"
+}
+output "private_sg_id" {
+    value = module.security_groups.private_sg_id# Thay 'security_groups' bằng tên module nếu cần
+    description = "ID of the public security group from module"
+}

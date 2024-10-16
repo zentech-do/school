@@ -54,3 +54,8 @@ variable "local_ip" {
   description = "ADD YOUR LOCAL IP ADDRESS"
   type        = string
 }
+# Path to the private key used for SSH access
+variable "private_key_path" {
+  description = "The path to the private key used for SSH."
+  type        = string
+}

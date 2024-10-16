@@ -49,3 +49,5 @@ module "ec2_instances" {
   public_sg_id      = module.security_groups.public_sg_id
   private_sg_id     = module.security_groups.private_sg_id
 }
+
+

@@ -16,3 +16,5 @@
 terraform.tfvars
 
 *.hcl
+
+.pytest_cache
