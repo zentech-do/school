@@ -1,2 +1,3 @@
 CI-CD/.env
 outputs.json
+.taskcat/.remote_templates
