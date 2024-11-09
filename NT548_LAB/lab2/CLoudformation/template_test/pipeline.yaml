@@ -39,6 +39,7 @@ Resources:
                 - Name: BuildOutput
               Configuration:
                 ProjectName: MyCodeBuildProject
+                BuildSpec: "NT548_LAB/lab2/CLoudformation/template_test/buildspec.yml"
         # - Name: Deploy
         #   Actions:
         #     - Name: CloudFormationDeploy
