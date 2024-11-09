@@ -21,9 +21,9 @@ Resources:
               OutputArtifacts:
                 - Name: SourceOutput
               Configuration:
-                Owner: "zentech-do"
-                Repo: "school"
-                Branch: "cloudf"
+                Owner: "HongQuan1812"
+                Repo: "DevOps_learning"
+                Branch: "main"
                 OAuthToken: !Ref GitHubOAuthToken
         - Name: Build
           Actions:
