@@ -18,11 +18,11 @@ phases:
       - cfn-lint --template ./module/ec2.yaml
       - cfn-lint --template ./module/nat_gateway.yaml
       - cfn-lint --template ./module/route_table.yaml
+      - scripts/create_bucket.sh lab2-21522490-bucket
 
   build:
     commands:
       - echo Running taskcat tests...
-      - scripts/create_bucket.sh lab2-21522490-bucket
       - taskcat test run
 
   post_build:
