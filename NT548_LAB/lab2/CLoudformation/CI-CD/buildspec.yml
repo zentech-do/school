@@ -24,16 +24,16 @@ phases:
       - echo Running taskcat tests...
       - taskcat test run
 
-  post_build:
-    commands:
-      - echo Taskcat tests completed. You can add CloudFormation deploy here if required.
-      # Example: Deploy CloudFormation if tests pass (optional, depends on your workflow)
-      - aws cloudformation deploy \
-        --stack-name my-cloudformation-stack \
-        --template-url https://s3.amazonaws.com/lab2-21522490-bucket/lab2-21522490/module/parent_stack.yaml \
-        --parameter-overrides \
-        ParameterKey=BucketName,ParameterValue=lab2-21522490-bucket \
-        ParameterKey=ProjectName,ParameterValue=lab2-21522490 \
+  # post_build:
+  #   commands:
+  #     - echo Taskcat tests completed. You can add CloudFormation deploy here if required.
+  #     # Example: Deploy CloudFormation if tests pass (optional, depends on your workflow)
+  #     - aws cloudformation deploy \
+  #       --stack-name my-cloudformation-stack \
+  #       --template-url https://s3.amazonaws.com/lab2-21522490-bucket/lab2-21522490/module/parent_stack.yaml \
+  #       --parameter-overrides \
+  #       ParameterKey=BucketName,ParameterValue=lab2-21522490-bucket \
+  #       ParameterKey=ProjectName,ParameterValue=lab2-21522490 \
 
 artifacts:
   files:
