@@ -24,7 +24,7 @@ Resources:
                 Owner: "HongQuan1812"
                 Repo: "DevOps_learning"
                 Branch: "main"
-                OAuthToken: !Ref GitHubOAuthToken
+                OAuthToken: !Sub "{{resolve:ssm-secure:/codepipeline/github/oauth-token}}"
         - Name: Build
           Actions:
             - Name: CodeBuildAction
