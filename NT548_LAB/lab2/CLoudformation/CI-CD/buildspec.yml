@@ -22,10 +22,13 @@ phases:
   build:
     commands:
       - echo Running taskcat tests...
+      - scripts/create_bucket.sh lab2-21522490-bucket
       - taskcat test run
 
-  # post_build:
-  #   commands:
+  post_build:
+    commands:
+      - scripts/delete_bucket.sh
+
   #     - echo Taskcat tests completed. You can add CloudFormation deploy here if required.
   #     # Example: Deploy CloudFormation if tests pass (optional, depends on your workflow)
   #     - aws cloudformation deploy \
