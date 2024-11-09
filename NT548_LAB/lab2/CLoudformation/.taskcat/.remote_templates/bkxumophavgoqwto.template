@@ -1,0 +1,85 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  VPCId:
+    Type: String
+    Description: "The ID of the VPC where the route table will be created."
+
+  PublicSubnetId:
+    Type: String
+    Description: "The ID of the public subnet."
+
+  InternetGatewayId:
+    Type: String
+    Description: "The ID of the Internet Gateway."
+
+  PrivateSubnetId:
+    Type: String
+    Description: "The ID of the private subnet."
+
+  NatGatewayId:
+    Type: String
+    Description: "The ID of the NAT Gateway."
+
+Resources:
+  # Create a Route Table for the Public Subnet
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: Name
+          Value: PublicRouteTable
+
+  # Associate Public Route Table with Public Subnet
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnetId
+      RouteTableId: !Ref PublicRouteTable
+
+  # Create a Route to the Internet for the Public Subnet
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGatewayId
+
+  # Create a Route Table for the Private Subnet
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPCId
+      Tags:
+        - Key: Name
+          Value: PrivateRouteTable
+
+  # Associate the Route Table with the Private Subnet
+  PrivateSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnetId
+      RouteTableId: !Ref PrivateRouteTable
+
+  # Create a route to direct internet-bound traffic to the NAT Gateway
+  PrivateRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGatewayId
+
+Outputs:
+  PublicRouteTableId:
+    Value: !Ref PublicRouteTable
+  PublicSubnetRouteTableAssociationId:
+    Value: !Ref PublicSubnetRouteTableAssociation
+  PublicRouteId:
+    Value: !Ref PublicRoute
+  PrivateRouteTableId:
+    Value: !Ref PrivateRouteTable
+  PrivateSubnetRouteTableAssociationId:
+    Value: !Ref PrivateSubnetRouteTableAssociation
+  PrivateRouteId:
+    Value: !Ref PrivateRoute

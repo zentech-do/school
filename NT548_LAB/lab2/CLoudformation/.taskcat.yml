@@ -1,0 +1,11 @@
+project:
+  name: lab2-21522490
+  regions:
+    - us-east-1
+  s3_bucket: lab2-21522490-bucket
+tests:
+  mytest:
+    template: ./module/parent_stack.yaml
+    parameters:
+      BucketName: lab2-21522490-bucket
+      ProjectName: lab2-21522490

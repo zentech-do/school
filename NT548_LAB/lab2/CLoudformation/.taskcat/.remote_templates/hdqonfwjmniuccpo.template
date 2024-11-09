@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  # VPCId:
+  #   Type: String
+  #   Description: "The ID of the VPC."
+
+  PublicSubnetId:
+    Type: String
+    Description: "The ID of the public subnet."
+
+  PrivateSubnetId:
+    Type: String
+    Description: "The ID of the private subnet."
+
+  PublicInstanceSecurityGroupId:
+    Type: String
+    Description: "The ID of the public Security Group."
+
+  PrivateInstanceSecurityGroupId:
+    Type: String
+    Description: "The ID of the private Security Group."
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: "Name of an existing EC2 KeyPair to enable SSH access to the instance."
+
+Resources:
+  # Public EC2 Instance
+  PublicInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      ImageId: ami-03d1b2fa19c17c9f1
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
+          SubnetId: !Ref PublicSubnetId
+          GroupSet:
+            - !Ref PublicInstanceSecurityGroupId
+      Tags:
+        - Key: Name
+          Value: PublicInstance
+
+  # Private EC2 Instance
+  PrivateInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      ImageId: ami-03d1b2fa19c17c9f1
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: false # No public IP for private instance
+          DeviceIndex: 0
+          SubnetId: !Ref PrivateSubnetId
+          GroupSet:
+            - !Ref PrivateInstanceSecurityGroupId
+      Tags:
+        - Key: Name
+          Value: PrivateInstance
+
+Outputs:
+  PublicInstanceId:
+    Value: !Ref PublicInstance
+
+  PrivateInstanceId:
+    Value: !Ref PrivateInstance
