@@ -9,16 +9,16 @@ phases:
       - pip install cfn-lint taskcat
 
   pre_build:
-  commands:
-    - echo Running cfn-lint on all CloudFormation templates...
-    - cd NT548_LAB/lab2/CLoudformation
-    - for template in module/*.yaml; do cfn-lint --template $template; done
-    - scripts/create_bucket.sh lab2-21522490-bucket
+    commands:
+      - echo Running cfn-lint on all CloudFormation templates...
+      - cd NT548_LAB/lab2/CLoudformation
+      - for template in module/*.yaml; do cfn-lint --template $template; done
+      - scripts/create_bucket.sh lab2-21522490-bucket
 
   build:
     commands:
       - echo Running taskcat tests...
-      - taskcat test run
+      - taskcat test run --config NT548_LAB/lab2/CLoudformation/module/.taskcat.yml
 
   # post_build:
   #   commands:
