@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: codepipeline-21522490-bucket # Ensure this bucket name is unique globally
+
+  MyPipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      RoleArn: arn:aws:iam::605134471711:role/service-role/Codepipeline # Ensure this is the correct role ARN
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: GitHubSource
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeStarSourceConnection
+                Version: 1
+              Configuration:
+                ConnectionArn: arn:aws:codeconnections:us-east-1:605134471711:connection/6ef2845e-cbba-48c2-bb82-1cd156deb6a1
+                FullRepositoryId: HongQuan1812/DevOps_learning # Your GitHub repository
+                BranchName: main # Branch to pull code from
+              OutputArtifacts:
+                - Name: SourceOutput
+              RunOrder: 1
+
+        - Name: Build
+          Actions:
+            - Name: BuildAction
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: 1
+              InputArtifacts:
+                - Name: SourceOutput
+              OutputArtifacts:
+                - Name: BuildOutput
+              Configuration:
+                ProjectName: lab2-21522490-project # Ensure the CodeBuild project exists
+              RunOrder: 1
+
+      ArtifactStore:
+        Type: S3
+        Location: !Ref ArtifactBucket
+      Name: MyPipeline
+
+Outputs:
+  PipelineId:
+    Value: !Ref MyPipeline
+    Description: "The ID of the created pipeline"
