@@ -9,21 +9,29 @@ phases:
       - pip install cfn-lint taskcat
 
   pre_build:
-    commands:
-      - echo Running cfn-lint on CloudFormation templates...
-      - cd NT548_LAB/lab2/CLoudformation
-      - cfn-lint --template ./module/parent_stack.yaml
-      - cfn-lint --template ./module/vpc.yaml
-      - cfn-lint --template ./module/sg.yaml
-      - cfn-lint --template ./module/ec2.yaml
-      - cfn-lint --template ./module/nat_gateway.yaml
-      - cfn-lint --template ./module/route_table.yaml
-      - scripts/create_bucket.sh lab2-21522490-bucket
+  commands:
+    - echo Running cfn-lint on all CloudFormation templates...
+    - cd NT548_LAB/lab2/CLoudformation
+    - for template in module/*.yaml; do cfn-lint --template $template; done
+    - scripts/create_bucket.sh lab2-21522490-bucket
 
   build:
     commands:
       - echo Running taskcat tests...
       - taskcat test run
+
+  # post_build:
+  #   commands:
+  #     # - scripts/delete_bucket.sh
+
+  # #     - echo Taskcat tests completed. You can add CloudFormation deploy here if required.
+  # #     # Example: Deploy CloudFormation if tests pass (optional, depends on your workflow)
+  # #     - aws cloudformation deploy \
+  # #       --stack-name my-cloudformation-stack \
+  # #       --template-url https://s3.amazonaws.com/lab2-21522490-bucket/lab2-21522490/module/parent_stack.yaml \
+  # #       --parameter-overrides \
+  # #       ParameterKey=BucketName,ParameterValue=lab2-21522490-bucket \
+  # #       ParameterKey=ProjectName,ParameterValue=lab2-21522490 \
 
 artifacts:
   files:
