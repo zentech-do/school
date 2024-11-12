@@ -109,8 +109,8 @@ Resources:
                 TemplatePath: SourceOutput::NT548_LAB/lab2/CLoudformation/module/parent_stack.yaml
                 ParameterOverrides: >
                   {
-                    "BucketName": "${BucketName}",
-                    "ProjectName": "${ProjectName}"
+                    "BucketName": ${BucketName},
+                    "ProjectName": ${ProjectName}
                   }
               InputArtifacts:
                 - Name: SourceOutput
