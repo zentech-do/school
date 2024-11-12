@@ -25,7 +25,7 @@ Resources:
   CodePipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
-      Name: "lab2-21522490-pipeline"
+      Name: lab2-21522490-pipeline
       RoleArn: arn:aws:iam::605134471711:role/service-role/Codepipeline # Ensure this is the correct role ARN
       Stages:
         - Name: Source
@@ -60,10 +60,29 @@ Resources:
                 ProjectName: !Ref CodeBuildProject # Ensure the CodeBuild project exists
               RunOrder: 1
 
+        - Name: Deploy
+          Actions:
+            - Name: CloudFormationDeployAction
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: 1
+              Configuration:
+                StackName: "lab2-21522490-pipeline-deploystage"
+                ActionMode: "CREATE_UPDATE"
+                Capabilities: "CAPABILITY_NAMED_IAM"
+                TemplatePath: SourceOutput::NT548_LAB/lab2/CLoudformation/module/parent_stack.yaml
+                ParameterOverrides: |
+                  BucketName=lab2-21522490-codepipeline-bucket
+                  ProjectName=lab2-21522490-module
+                InputArtifacts:
+                  - Name: SourceOutput
+              RunOrder: 1
+
       ArtifactStore:
         Type: S3
         Location: !Ref ArtifactBucket
-      Name: CodePipeline
 
 Outputs:
   PipelineId:

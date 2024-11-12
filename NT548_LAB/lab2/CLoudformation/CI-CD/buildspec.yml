@@ -12,13 +12,28 @@ phases:
     commands:
       - echo Running cfn-lint on all CloudFormation templates...
       - cd NT548_LAB/lab2/CLoudformation
-      - for template in module/*.yaml; do cfn-lint --template $template; done
-      # - scripts/create_bucket.sh lab2-21522490-bucket
+      - for template in module/*.yaml; do
+        echo "Linting $template...";
+        cfn-lint --template $template;
+        done
 
   build:
     commands:
       - echo Running taskcat tests...
       - taskcat test run
+
+  post_build:
+    commands:
+      - echo Taskcat tests completed. You can add CloudFormation deploy here if required.
+
+      - BucketName="lab2-21522490-codepipeline-bucket"
+      - ProjectName="lab2-21522490-module"
+
+      - aws s3 cp module/vpc.yaml s3://"$BucketName"/"$ProjectName"/vpc.yaml
+      - aws s3 cp module/route_table.yaml s3://"$BucketName"/"$ProjectName"/route_table.yaml
+      - aws s3 cp module/nat_gateway.yaml s3://"$BucketName"/"$ProjectName"/nat_gateway.yaml
+      - aws s3 cp module/sg.yaml s3://"$BucketName"/"$ProjectName"/sg.yaml
+      - aws s3 cp module/ec2.yaml s3://"$BucketName"/"$ProjectName"/ec2.yaml
 
 artifacts:
   files:
