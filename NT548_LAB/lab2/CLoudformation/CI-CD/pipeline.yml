@@ -76,8 +76,8 @@ Resources:
                 ParameterOverrides: |
                   BucketName=lab2-21522490-codepipeline-bucket
                   ProjectName=lab2-21522490-module
-                InputArtifacts:
-                  - Name: SourceOutput
+              InputArtifacts:
+                - Name: SourceOutput
               RunOrder: 1
 
       ArtifactStore:
