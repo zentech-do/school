@@ -22,17 +22,6 @@ phases:
       - echo Running taskcat tests...
       - taskcat test run
 
-  post_build:
-    commands:
-      - echo Taskcat tests completed. You can add CloudFormation deploy here if required.
-
-      - BucketName=lab2-21522490-codepipeline-bucket
-      - ProjectName=lab2-21522490-module
-
-      - for template in module/*.yaml; do
-        aws s3 cp $template s3://$BucketName/$ProjectName/$template;
-        done
-
 artifacts:
   files:
     - "**/*"
