@@ -1,13 +1,31 @@
 AWSTemplateFormatVersion: "2010-09-09"
+
 Resources:
   ArtifactBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: codepipeline-21522490-bucket # Ensure this bucket name is unique globally
+      BucketName: lab2-21522490-codepipeline-bucket # Ensure this bucket name is unique globally
 
-  MyPipeline:
+  CodeBuildProject:
+    Type: "AWS::CodeBuild::Project"
+    Properties:
+      Name: "lab2-21522490-project"
+      ServiceRole: arn:aws:iam::605134471711:role/CodeBuild
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: "NT548_LAB/lab2/CLoudformation/CI-CD/buildspec.yml"
+      Artifacts:
+        Type: CODEPIPELINE
+      Environment:
+        ComputeType: "BUILD_GENERAL1_SMALL"
+        Image: "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
+        Type: "LINUX_CONTAINER"
+      TimeoutInMinutes: 30
+
+  CodePipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
+      Name: "lab2-21522490-pipeline"
       RoleArn: arn:aws:iam::605134471711:role/service-role/Codepipeline # Ensure this is the correct role ARN
       Stages:
         - Name: Source
@@ -39,15 +57,18 @@ Resources:
               OutputArtifacts:
                 - Name: BuildOutput
               Configuration:
-                ProjectName: lab2-21522490-project # Ensure the CodeBuild project exists
+                ProjectName: !Ref CodeBuildProject # Ensure the CodeBuild project exists
               RunOrder: 1
 
       ArtifactStore:
         Type: S3
         Location: !Ref ArtifactBucket
-      Name: MyPipeline
+      Name: CodePipeline
 
 Outputs:
   PipelineId:
-    Value: !Ref MyPipeline
+    Value: !Ref CodePipeline
     Description: "The ID of the created pipeline"
+
+  ArtifactBucket:
+    Value: !Ref ArtifactBucket
