@@ -1,5 +1,5 @@
 project:
-  name: lab2-21522490-module
+  name: lab2-21522490
   regions:
     - us-east-1
   s3_bucket: lab2-21522490-codepipeline-bucket
@@ -9,4 +9,4 @@ tests:
     template: ./module/parent_stack.yaml
     parameters:
       BucketName: lab2-21522490-codepipeline-bucket
-      ProjectName: lab2-21522490-module
+      ProjectName: lab2-21522490

@@ -1,16 +1,49 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
+Parameters:
+  BucketName:
+    Type: String
+    Description: "The S3 bucket name for the pipeline."
+
+  ProjectName:
+    Type: String
+    Description: "The S3 folder for the taskcat."
+
+  CodeBuildRoleArn:
+    Type: String
+    Description: "The ARN for the CodeBuild service role."
+
+  CloudFormationRoleArn:
+    Type: String
+    Description: "The ARN for the CloudFormation role."
+
+  CodePipelineRoleArn:
+    Type: String
+    Description: "The ARN for the CodePipeline role."
+
+  ConnectionArn:
+    Type: String
+    Description: "The ARN for the GitHub connection in CodePipeline."
+
+  RepositoryId:
+    Type: String
+    Description: "The full repository ID in GitHub (username/repository)."
+
+  BranchName:
+    Type: String
+    Description: "The branch name for the GitHub repository."
+
 Resources:
   ArtifactBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: lab2-21522490-codepipeline-bucket # Ensure this bucket name is unique globally
+      BucketName: !Ref BucketName # Reference BucketName parameter
 
   CodeBuildProject:
     Type: "AWS::CodeBuild::Project"
     Properties:
-      Name: "lab2-21522490-project"
-      ServiceRole: arn:aws:iam::605134471711:role/CodeBuild
+      Name: !Sub "${ProjectName}-build-project" # Reference ProjectName parameter
+      ServiceRole: !Ref CodeBuildRoleArn # Reference CodeBuildRoleArn parameter
       Source:
         Type: CODEPIPELINE
         BuildSpec: "NT548_LAB/lab2/CLoudformation/CI-CD/buildspec.yml"
@@ -25,8 +58,8 @@ Resources:
   CodePipeline:
     Type: AWS::CodePipeline::Pipeline
     Properties:
-      Name: lab2-21522490-pipeline
-      RoleArn: arn:aws:iam::605134471711:role/service-role/Codepipeline # Ensure this is the correct role ARN
+      Name: !Sub "${ProjectName}-pipeline" # Reference ProjectName parameter
+      RoleArn: !Ref CodePipelineRoleArn # Reference CodePipelineRoleArn parameter
       Stages:
         - Name: Source
           Actions:
@@ -37,9 +70,9 @@ Resources:
                 Provider: CodeStarSourceConnection
                 Version: 1
               Configuration:
-                ConnectionArn: arn:aws:codeconnections:us-east-1:605134471711:connection/6ef2845e-cbba-48c2-bb82-1cd156deb6a1
-                FullRepositoryId: HongQuan1812/DevOps_learning # Your GitHub repository
-                BranchName: main # Branch to pull code from
+                ConnectionArn: !Ref ConnectionArn # Reference ConnectionArn parameter
+                FullRepositoryId: !Ref RepositoryId # Reference RepositoryId parameter
+                BranchName: !Ref BranchName # Reference BranchName parameter
               OutputArtifacts:
                 - Name: SourceOutput
               RunOrder: 1
@@ -57,7 +90,7 @@ Resources:
               OutputArtifacts:
                 - Name: BuildOutput
               Configuration:
-                ProjectName: !Ref CodeBuildProject # Ensure the CodeBuild project exists
+                ProjectName: !Ref CodeBuildProject # Reference CodeBuildProject resource
               RunOrder: 1
 
         - Name: Deploy
@@ -69,15 +102,15 @@ Resources:
                 Provider: CloudFormation
                 Version: 1
               Configuration:
-                StackName: "lab2-21522490-pipeline-deploystage"
-                RoleArn: arn:aws:iam::605134471711:role/CloudFormation # Replace with the appropriate role ARN
+                StackName: !Sub "${ProjectName}-deploystage" # Reference ProjectName parameter
+                RoleArn: !Ref CloudFormationRoleArn # Reference CloudFormationRoleArn parameter
                 ActionMode: "CREATE_UPDATE"
                 Capabilities: "CAPABILITY_NAMED_IAM"
                 TemplatePath: SourceOutput::NT548_LAB/lab2/CLoudformation/module/parent_stack.yaml
                 ParameterOverrides: >
                   {
-                    "BucketName": "lab2-21522490-codepipeline-bucket",
-                    "ProjectName": "lab2-21522490-module"
+                    "BucketName": "${BucketName}",
+                    "ProjectName": "${ProjectName}"
                   }
               InputArtifacts:
                 - Name: SourceOutput
@@ -85,7 +118,7 @@ Resources:
 
       ArtifactStore:
         Type: S3
-        Location: !Ref ArtifactBucket
+        Location: !Ref ArtifactBucket # Reference ArtifactBucket resource
 
 Outputs:
   PipelineId:
@@ -94,3 +127,4 @@ Outputs:
 
   ArtifactBucket:
     Value: !Ref ArtifactBucket
+    Description: "The S3 bucket used for the pipeline"
