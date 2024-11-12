@@ -74,9 +74,11 @@ Resources:
                 ActionMode: "CREATE_UPDATE"
                 Capabilities: "CAPABILITY_NAMED_IAM"
                 TemplatePath: SourceOutput::NT548_LAB/lab2/CLoudformation/module/parent_stack.yaml
-                ParameterOverrides: |
-                  BucketName=lab2-21522490-codepipeline-bucket
-                  ProjectName=lab2-21522490-module
+                ParameterOverrides: >
+                  {
+                    "BucketName": "lab2-21522490-codepipeline-bucket",
+                    "ProjectName": "lab2-21522490-module"
+                  }
               InputArtifacts:
                 - Name: SourceOutput
               RunOrder: 1
