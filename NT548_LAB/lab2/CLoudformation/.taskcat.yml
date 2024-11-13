@@ -1,12 +1,12 @@
 project:
-  name: lab2-21522490
+  name: ${ProjectName}
   regions:
     - us-east-1
-  s3_bucket: lab2-21522490-codepipeline-bucket
+  s3_bucket: ${ProjectName}-codepipeline-bucket
 
 tests:
   mytest:
     template: ./module/parent_stack.yaml
     parameters:
-      BucketName: lab2-21522490-codepipeline-bucket
-      ProjectName: lab2-21522490
+      BucketName: ${ProjectName}-codepipeline-bucket # Reference the first parameter from env.json
+      ProjectName: ${ProjectName} # Reference the second parameter from env.json

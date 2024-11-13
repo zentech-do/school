@@ -37,7 +37,7 @@ Resources:
   ArtifactBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref BucketName # Reference BucketName parameter
+      BucketName: !Sub "${ProjectName}-codepipeline-bucket" # Reference BucketName parameter
 
   CodeBuildProject:
     Type: "AWS::CodeBuild::Project"
@@ -109,7 +109,7 @@ Resources:
                 TemplatePath: SourceOutput::NT548_LAB/lab2/CLoudformation/module/parent_stack.yaml
                 ParameterOverrides: !Sub |
                   {
-                    "BucketName": "${BucketName}",
+                    "BucketName": "${ProjectName}-codepipeline-bucket",
                     "ProjectName": "${ProjectName}"
                   }
               InputArtifacts:
