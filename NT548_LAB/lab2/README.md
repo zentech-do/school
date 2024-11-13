@@ -9,8 +9,11 @@
   ```
 
   - Set parameters in `env.json`
+    - Create Connectionn to GitHub Repo in AWS CodePipeline settings -> Set `ConnectionArn`
+    - Clone ạnd Push source code into GitHub Repo -> Set `RepositoryId`
+    - Set IAM Roles for AWS CodePipeline, AWS CodeBuild (build stage) and AWS CloudFormation (deploy stage)
 
-- **Delete stack, run the command:**
+- **Delete CodePipeline-stack (Not Deploy Stack), run the command:**
   ```
   ./scripts/delete_stack.sh
   ```
