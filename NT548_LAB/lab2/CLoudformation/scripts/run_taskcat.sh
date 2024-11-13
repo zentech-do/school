@@ -10,5 +10,5 @@ export ProjectName
 
 envsubst < .taskcat.template.yml > .taskcat.yml
 
-# # Run taskcat
-# taskcat test run
+# Run taskcat
+taskcat test run
