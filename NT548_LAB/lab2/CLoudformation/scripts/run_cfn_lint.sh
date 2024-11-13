@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd NT548_LAB/lab2/CLoudformation
+# cd NT548_LAB/lab2/CLoudformation
 
 for template in module/*.yaml; do
     echo "Linting $template...";

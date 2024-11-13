@@ -7,6 +7,7 @@ phases:
     commands:
       - echo Installing dependencies...
       - pip install cfn-lint taskcat
+      - cd NT548_LAB/lab2/CLoudformation
 
   pre_build:
     commands:

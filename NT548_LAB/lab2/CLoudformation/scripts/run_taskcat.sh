@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd NT548_LAB/lab2/CLoudformation
+# cd NT548_LAB/lab2/CLoudformation
 
 # Extract values from env.json
 ProjectName=$(jq -r '.[] | select(.ParameterKey == "ProjectName") | .ParameterValue' CI-CD/env.json)
