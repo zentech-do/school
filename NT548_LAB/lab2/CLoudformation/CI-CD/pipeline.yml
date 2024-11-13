@@ -1,10 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Parameters:
-  BucketName:
-    Type: String
-    Description: "The S3 bucket name for the pipeline."
-
   ProjectName:
     Type: String
     Description: "The S3 folder for the taskcat."
