@@ -1,12 +1,12 @@
 project:
-  name: !Sub "${ProjectName}"
+  name: lab2-21522490
   regions:
     - us-east-1
-  s3_bucket: !Sub "${ProjectName}-codepipeline-bucket"
+  s3_bucket: lab2-21522490-codepipeline-bucket
 
 tests:
   mytest:
     template: ./module/parent_stack.yaml
     parameters:
-      BucketName: !Sub "${ProjectName}-codepipeline-bucket"
-      ProjectName: !Sub "${ProjectName}"
+      BucketName: lab2-21522490-codepipeline-bucket
+      ProjectName: lab2-21522490

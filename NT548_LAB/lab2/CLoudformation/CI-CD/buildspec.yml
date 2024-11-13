@@ -11,12 +11,7 @@ phases:
   pre_build:
     commands:
       - echo Running cfn-lint on all CloudFormation templates...
-      - cd NT548_LAB/lab2/CLoudformation
-      - for template in module/*.yaml; do
-        echo "Linting $template...";
-        cfn-lint --template $template;
-        done
-
+      - scripts/run_cfn_lint.sh
   build:
     commands:
       - echo Running taskcat tests...
