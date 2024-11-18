@@ -1,0 +1,12 @@
+project:
+  name: ${ProjectName}
+  regions:
+    - us-east-1
+  s3_bucket: ${ProjectName}-codepipeline-bucket
+
+tests:
+  mytest:
+    template: ./module/parent_stack.yaml
+    parameters:
+      BucketName: ${ProjectName}-codepipeline-bucket
+      ProjectName: ${ProjectName}

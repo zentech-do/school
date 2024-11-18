@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.x
+    commands:
+      - echo Installing dependencies...
+      - pip install cfn-lint taskcat
+      - cd NT548_LAB/lab2/CLoudformation
+
+  pre_build:
+    commands:
+      - echo Running cfn-lint on all CloudFormation templates...
+      - scripts/run_cfn_lint.sh
+  build:
+    commands:
+      - echo Running taskcat tests...
+      - scripts/run_taskcat.sh
+
+artifacts:
+  files:
+    - "**/*"
+  discard-paths: yes

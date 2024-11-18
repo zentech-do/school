@@ -1,0 +1,126 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  ProjectName:
+    Type: String
+    Description: "The S3 folder for the taskcat."
+
+  CodeBuildRoleArn:
+    Type: String
+    Description: "The ARN for the CodeBuild service role."
+
+  CloudFormationRoleArn:
+    Type: String
+    Description: "The ARN for the CloudFormation role."
+
+  CodePipelineRoleArn:
+    Type: String
+    Description: "The ARN for the CodePipeline role."
+
+  ConnectionArn:
+    Type: String
+    Description: "The ARN for the GitHub connection in CodePipeline."
+
+  RepositoryId:
+    Type: String
+    Description: "The full repository ID in GitHub (username/repository)."
+
+  BranchName:
+    Type: String
+    Description: "The branch name for the GitHub repository."
+
+Resources:
+  ArtifactBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${ProjectName}-codepipeline-bucket" # Reference BucketName parameter
+
+  CodeBuildProject:
+    Type: "AWS::CodeBuild::Project"
+    Properties:
+      Name: !Sub "${ProjectName}-build-project" # Reference ProjectName parameter
+      ServiceRole: !Ref CodeBuildRoleArn # Reference CodeBuildRoleArn parameter
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: "NT548_LAB/lab2/CLoudformation/CI-CD/buildspec.yml"
+      Artifacts:
+        Type: CODEPIPELINE
+      Environment:
+        ComputeType: "BUILD_GENERAL1_SMALL"
+        Image: "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
+        Type: "LINUX_CONTAINER"
+      TimeoutInMinutes: 30
+
+  CodePipeline:
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: !Sub "${ProjectName}-pipeline" # Reference ProjectName parameter
+      RoleArn: !Ref CodePipelineRoleArn # Reference CodePipelineRoleArn parameter
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: GitHubSource
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeStarSourceConnection
+                Version: 1
+              Configuration:
+                ConnectionArn: !Ref ConnectionArn # Reference ConnectionArn parameter
+                FullRepositoryId: !Ref RepositoryId # Reference RepositoryId parameter
+                BranchName: !Ref BranchName # Reference BranchName parameter
+              OutputArtifacts:
+                - Name: SourceOutput
+              RunOrder: 1
+
+        - Name: Build
+          Actions:
+            - Name: BuildAction
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: 1
+              InputArtifacts:
+                - Name: SourceOutput
+              OutputArtifacts:
+                - Name: BuildOutput
+              Configuration:
+                ProjectName: !Ref CodeBuildProject # Reference CodeBuildProject resource
+              RunOrder: 1
+
+        - Name: Deploy
+          Actions:
+            - Name: CloudFormationDeployAction
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Provider: CloudFormation
+                Version: 1
+              Configuration:
+                StackName: !Sub "${ProjectName}-deploystage" # Reference ProjectName parameter
+                RoleArn: !Ref CloudFormationRoleArn # Reference CloudFormationRoleArn parameter
+                ActionMode: "CREATE_UPDATE"
+                Capabilities: "CAPABILITY_NAMED_IAM"
+                TemplatePath: SourceOutput::NT548_LAB/lab2/CLoudformation/module/parent_stack.yaml
+                ParameterOverrides: !Sub |
+                  {
+                    "BucketName": "${ProjectName}-codepipeline-bucket",
+                    "ProjectName": "${ProjectName}"
+                  }
+              InputArtifacts:
+                - Name: SourceOutput
+              RunOrder: 1
+
+      ArtifactStore:
+        Type: S3
+        Location: !Ref ArtifactBucket # Reference ArtifactBucket resource
+
+Outputs:
+  PipelineId:
+    Value: !Ref CodePipeline
+    Description: "The ID of the created pipeline"
+
+  ArtifactBucket:
+    Value: !Ref ArtifactBucket
+    Description: "The S3 bucket used for the pipeline"
