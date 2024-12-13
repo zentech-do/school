@@ -1,0 +1,64 @@
+Parameters:
+  ProjectName:
+    Type: String
+    Description: "The name of the project for TaskCat deployment."
+
+  VPC:
+    Type: String
+    Description: "The ID of the VPC."
+
+Resources:
+  # Public instance security group
+  PublicInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${ProjectName}-PublicInstanceSecurityGroup"
+      GroupDescription: "Allow HTTP and HTTPS traffic for public instances."
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0 # HTTP from anywhere
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0 # HTTPS from anywhere
+
+  # Private instance security group
+  PrivateInstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${ProjectName}-PrivateInstanceSecurityGroup"
+      GroupDescription: "Allow HTTP and HTTPS traffic from public instances."
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          SourceSecurityGroupId: !Ref PublicInstanceSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: !Ref PublicInstanceSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 10250
+          ToPort: 10250
+          CidrIp: 10.0.2.0/24 # Allow access from PrivateSubnet1
+        - IpProtocol: tcp
+          FromPort: 10250
+          ToPort: 10250
+          CidrIp: 10.0.3.0/24 # Allow access from PrivateSubnet2
+        - IpProtocol: tcp
+          FromPort: 30000
+          ToPort: 32767
+          CidrIp: 10.0.2.0/24 # Allow access from PrivateSubnet1 for NodePort services
+        - IpProtocol: tcp
+          FromPort: 30000
+          ToPort: 32767
+          CidrIp: 10.0.3.0/24 # Allow access from PrivateSubnet2 for NodePort services
+Outputs:
+  PublicInstanceSecurityGroup:
+    Value: !Ref PublicInstanceSecurityGroup
+  PrivateInstanceSecurityGroup:
+    Value: !Ref PrivateInstanceSecurityGroup

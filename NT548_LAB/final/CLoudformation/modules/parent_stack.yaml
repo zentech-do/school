@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+  ProjectName:
+    Type: String
+    Description: "The name of the project for TaskCat deployment."
+
+Resources:
+  EKSRoleStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${ProjectName}-bucket/${ProjectName}/iam_roles/eks_role.yaml"
+      Parameters:
+        ProjectName: !Ref ProjectName
+
+  NodeInstanceRoleStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${ProjectName}-bucket/${ProjectName}/iam_roles/node_instance_role.yaml"
+      Parameters:
+        ProjectName: !Ref ProjectName
+
+  VPCStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${ProjectName}-bucket/${ProjectName}/modules/vpc.yaml"
+      Parameters:
+        ProjectName: !Ref ProjectName
+
+  GateWayStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${ProjectName}-bucket/${ProjectName}/modules/gateway.yaml"
+      Parameters:
+        ProjectName: !Ref ProjectName
+        VPC: !GetAtt VPCStack.Outputs.VPC
+        PublicSubnet1: !GetAtt VPCStack.Outputs.PublicSubnet1
+        PublicSubnet2: !GetAtt VPCStack.Outputs.PublicSubnet2
+
+  RouteTableStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${ProjectName}-bucket/${ProjectName}/modules/route_table.yaml"
+      Parameters:
+        ProjectName: !Ref ProjectName
+        VPC: !GetAtt VPCStack.Outputs.VPC
+        PublicSubnet1: !GetAtt VPCStack.Outputs.PublicSubnet1
+        PublicSubnet2: !GetAtt VPCStack.Outputs.PublicSubnet2
+        PrivateSubnet1: !GetAtt VPCStack.Outputs.PrivateSubnet1
+        PrivateSubnet2: !GetAtt VPCStack.Outputs.PrivateSubnet2
+        InternetGateway: !GetAtt GateWayStack.Outputs.InternetGateway
+        NatGateway1: !GetAtt GateWayStack.Outputs.NatGateway1
+        NatGateway2: !GetAtt GateWayStack.Outputs.NatGateway2
+
+  SecurityGroupStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${ProjectName}-bucket/${ProjectName}/modules/sg.yaml"
+      Parameters:
+        ProjectName: !Ref ProjectName
+        VPC: !GetAtt VPCStack.Outputs.VPC
+
+  EKSStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub "https://s3.amazonaws.com/${ProjectName}-bucket/${ProjectName}/modules/eks.yaml"
+      Parameters:
+        ProjectName: !Ref ProjectName
+        PrivateSubnet1: !GetAtt VPCStack.Outputs.PrivateSubnet1
+        PrivateSubnet2: !GetAtt VPCStack.Outputs.PrivateSubnet2
+        PrivateInstanceSecurityGroup: !GetAtt SecurityGroupStack.Outputs.PrivateInstanceSecurityGroup
+        EKSClusterRoleArn: !GetAtt EKSRoleStack.Outputs.EKSClusterRoleArn
+        NodeInstanceRoleArn: !GetAtt NodeInstanceRoleStack.Outputs.NodeInstanceRoleArn
+    DependsOn:
+      - GateWayStack
+      - RouteTableStack
