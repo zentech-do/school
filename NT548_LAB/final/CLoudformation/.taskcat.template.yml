@@ -1,0 +1,11 @@
+project:
+  name: ${ProjectName}
+  regions:
+    - us-east-1
+  s3_bucket: ${ProjectName}-bucket
+
+tests:
+  mytest:
+    template: ./modules/parent_stack.yaml
+    parameters:
+      ProjectName: ${ProjectName}

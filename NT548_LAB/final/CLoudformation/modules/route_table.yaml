@@ -1,0 +1,117 @@
+Parameters:
+  ProjectName:
+    Type: String
+    Description: "The name of the project for TaskCat deployment."
+
+  VPC:
+    Type: String
+    Description: "The ID of the VPC where the route table will be created."
+
+  PublicSubnet1:
+    Type: String
+    Description: "The ID of the public subnet."
+
+  PublicSubnet2:
+    Type: String
+    Description: "The ID of the public subnet."
+
+  PrivateSubnet1:
+    Type: String
+    Description: "The ID of the private subnet."
+
+  PrivateSubnet2:
+    Type: String
+    Description: "The ID of the private subnet."
+
+  InternetGateway:
+    Type: String
+    Description: "The ID of the Internet Gateway."
+
+  NatGateway1:
+    Type: String
+
+  NatGateway2:
+    Type: String
+
+Resources:
+  # Create a Route Table for the Public Subnet
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${ProjectName}-PublicRouteTable"
+
+  PrivateRouteTable1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${ProjectName}-PrivateRouteTable1"
+
+  PrivateRouteTable2:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${ProjectName}-PrivateRouteTable2"
+
+  # Create a Route to the Internet for the Public Subnet
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PrivateRoute1:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable1
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway1
+
+  PrivateRoute2:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable2
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref NatGateway2
+
+  # Associate Public Route Table with Public Subnet
+  PublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      RouteTableId: !Ref PublicRouteTable
+
+  # Associate Public Route Table with Public Subnet
+  PublicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
+
+  # Associate the Route Table with the Private Subnet
+  PrivateSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet1
+      RouteTableId: !Ref PrivateRouteTable1
+
+  PrivateSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet2
+      RouteTableId: !Ref PrivateRouteTable2
+
+Outputs:
+  PublicRouteTable:
+    Value: !Ref PublicRouteTable
+  PrivateRouteTable1:
+    Value: !Ref PrivateRouteTable1
+  PrivateRouteTable2:
+    Value: !Ref PrivateRouteTable2
