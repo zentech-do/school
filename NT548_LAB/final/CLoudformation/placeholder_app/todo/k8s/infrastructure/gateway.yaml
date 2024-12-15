@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: todo-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+        - name: gateway
+          image: docker.tyk.io/tyk-gateway/tyk-gateway
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: tyk-config
+              mountPath: /opt/tyk-gateway/tyk.conf
+              subPath: tyk.standalone.conf
+            - name: tyk-apps
+              mountPath: /opt/tyk-gateway/apps
+      volumes:
+        - name: tyk-config
+          configMap:
+            name: tyk-config
+        - name: tyk-apps
+          configMap:
+            name: tyk-apps
