@@ -1,0 +1,106 @@
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                            ResourceStatusReason
+--------------------------------  ------------------  --------------------------  -----------------------------------------------------------  ---------------------------
+2024-12-16 11:06:11.334000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5
+2024-12-16 11:06:11.040000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  EKSRoleStack
+2024-12-16 11:06:10.836000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  NodeInstanceRoleStack
+2024-12-16 11:05:59.769000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  VPCStack
+2024-12-16 11:05:49.066000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  NodeInstanceRoleStack
+2024-12-16 11:05:49.063000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  VPCStack
+2024-12-16 11:05:49.052000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  EKSRoleStack
+2024-12-16 11:05:45.628000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  VPCStack                                                     Resource creation cancelled
+2024-12-16 11:05:45.624000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  NodeInstanceRoleStack                                        Resource creation cancelled
+2024-12-16 11:05:45.623000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  EKSRoleStack                                                 Resource creation cancelled
+2024-12-16 11:05:45.257000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5  User Initiated
+2024-12-16 11:05:37.077000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  VPCStack                                                     Resource creation Initiated
+2024-12-16 11:05:36.935000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  NodeInstanceRoleStack                                        Resource creation Initiated
+2024-12-16 11:05:36.910000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  EKSRoleStack                                                 Resource creation Initiated
+2024-12-16 11:05:36.335000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  VPCStack
+2024-12-16 11:05:36.251000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  EKSRoleStack
+2024-12-16 11:05:36.249000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  NodeInstanceRoleStack
+2024-12-16 11:05:34.013000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 06:06PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-VPCStack-1V3IY2Q2W6H6X
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                                   ResourceStatusReason
+--------------------------------  ------------------  --------------------------  ----------------------------------------------------------------------------------  ---------------------------
+2024-12-16 11:05:54.759000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-VPCStack-1V3IY2Q2W6H6X
+2024-12-16 11:05:54.470000+00:00  DELETE_COMPLETE     AWS::EC2::VPC               VPC
+2024-12-16 11:05:53.224000+00:00  DELETE_IN_PROGRESS  AWS::EC2::VPC               VPC
+2024-12-16 11:05:50.039000+00:00  CREATE_FAILED       AWS::EC2::VPC               VPC                                                                                 Resource creation cancelled
+2024-12-16 11:05:49.436000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-VPCStack-1V3IY2Q2W6H6X  User Initiated
+2024-12-16 11:05:40.516000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPC               VPC                                                                                 Resource creation Initiated
+2024-12-16 11:05:39.242000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPC               VPC
+2024-12-16 11:05:36.926000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-VPCStack-1V3IY2Q2W6H6X  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 06:06PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-NodeInstanceRoleStack-1UWGZVT9V0F2G
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                                                ResourceStatusReason
+--------------------------------  ------------------  --------------------------  -----------------------------------------------------------------------------------------------  ---------------------------
+2024-12-16 11:06:03.255000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-NodeInstanceRoleStack-1UWGZVT9V0F2G
+2024-12-16 11:06:02.830000+00:00  DELETE_COMPLETE     AWS::IAM::Role              NodeInstanceRole
+2024-12-16 11:05:53.168000+00:00  DELETE_IN_PROGRESS  AWS::IAM::Role              NodeInstanceRole
+2024-12-16 11:05:49.766000+00:00  CREATE_FAILED       AWS::IAM::Role              NodeInstanceRole                                                                                 Resource creation cancelled
+2024-12-16 11:05:49.454000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-NodeInstanceRoleStack-1UWGZVT9V0F2G  User Initiated
+2024-12-16 11:05:39.913000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role              NodeInstanceRole                                                                                 Resource creation Initiated
+2024-12-16 11:05:39.074000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role              NodeInstanceRole
+2024-12-16 11:05:36.786000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-NodeInstanceRoleStack-1UWGZVT9V0F2G  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 06:06PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-EKSRoleStack-1Q9PQ7MEC6R0A
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                                       ResourceStatusReason
+--------------------------------  ------------------  --------------------------  --------------------------------------------------------------------------------------  ---------------------------
+2024-12-16 11:06:03.007000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-EKSRoleStack-1Q9PQ7MEC6R0A
+2024-12-16 11:06:02.711000+00:00  DELETE_COMPLETE     AWS::IAM::Role              EKSClusterRole
+2024-12-16 11:05:53.037000+00:00  DELETE_IN_PROGRESS  AWS::IAM::Role              EKSClusterRole
+2024-12-16 11:05:50.002000+00:00  CREATE_FAILED       AWS::IAM::Role              EKSClusterRole                                                                          Resource creation cancelled
+2024-12-16 11:05:49.478000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-EKSRoleStack-1Q9PQ7MEC6R0A  User Initiated
+2024-12-16 11:05:39.976000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role              EKSClusterRole                                                                          Resource creation Initiated
+2024-12-16 11:05:39.223000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role              EKSClusterRole
+2024-12-16 11:05:36.772000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-6ce1864408444b348cb761d90aaeace5-EKSRoleStack-1Q9PQ7MEC6R0A  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 06:06PM
+-----------------------------------------------------------------------------
+

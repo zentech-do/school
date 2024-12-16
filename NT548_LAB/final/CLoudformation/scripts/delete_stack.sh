@@ -9,7 +9,7 @@ stack_name="${ProjectName}"
 # -------------------------------- Delete K8s Resources -----------------------------------------
 
 
-kubectl delete namespace fastapi-placeholder
+kubectl delete namespace todo-namespace
 
 
 # -------------------------------- Delete Stack -----------------------------------------

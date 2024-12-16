@@ -48,11 +48,11 @@ Resources:
         - !Ref PrivateSubnet1 # First private subnet
         - !Ref PrivateSubnet2 # Second private subnet
       ScalingConfig:
-        DesiredSize: 2 # Initial number of EC2 instances
-        MaxSize: 5 # Max number of EC2 instances in the node group
+        DesiredSize: 4 # Initial number of EC2 instances
+        MaxSize: 10 # Max number of EC2 instances in the node group
         MinSize: 1 # Min number of EC2 instances in the node group
       InstanceTypes:
-        - t2.micro # EC2 instance type for the worker nodes
+        - t3.small # EC2 instance type for the worker nodes
       AmiType: AL2_x86_64 # AMI type, e.g., Amazon Linux 2 (x86_64)
 
 Outputs:

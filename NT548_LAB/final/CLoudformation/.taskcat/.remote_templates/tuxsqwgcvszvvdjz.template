@@ -1,0 +1,29 @@
+Parameters:
+  ProjectName:
+    Type: String
+    Description: "The name of the project for TaskCat deployment."
+
+Resources:
+  NodeInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${ProjectName}-NodeInstanceRole"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action: "sts:AssumeRole"
+            Principal:
+              Service: "ec2.amazonaws.com" # EC2 instances assume this role
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy # Provides access to EKS
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly # Allows read access to ECR
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy # Added: Required for the Amazon VPC CNI plugin
+        # - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess # Optional: Allows read-only access to S3
+        # - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess # Optional: Allows writing to CloudWatch logs
+        # - arn:aws:iam::aws:policy/AmazonVPCFullAccess # Optional: Allows managing VPCs and related components
+
+Outputs:
+  NodeInstanceRoleArn:
+    Value: !GetAtt NodeInstanceRole.Arn
+    Description: "The ARN of the IAM role for EC2 instances in the EKS node group."

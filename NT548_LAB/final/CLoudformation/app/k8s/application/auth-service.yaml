@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: todo-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+        - name: auth-service
+          image: hongquan181203/nt548:auth-service
+          ports:
+            - containerPort: 3100
+            - containerPort: 3101
+          env:
+            - name: DB_DSN
+              value: root:root_password_secret_tcp@tcp(mysql:3306)/todo-auth?charset=utf8mb4&parseTime=True&loc=Local
+            - name: JWT_SECRET
+              value: very-important-please-change-it!
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: todo-namespace
+spec:
+  ports:
+    - name: http
+      port: 3100
+      targetPort: 3100
+    - name: grpc
+      port: 3101
+      targetPort: 3101
+  selector:
+    app: auth-service
