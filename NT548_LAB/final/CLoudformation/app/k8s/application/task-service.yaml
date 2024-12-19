@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-service
+  namespace: todo-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-service
+  template:
+    metadata:
+      labels:
+        app: task-service
+    spec:
+      containers:
+        - name: task-service
+          image: hongquan181203/nt548:task-service
+          ports:
+            - containerPort: 3300
+          env:
+            - name: DB_DSN
+              value: root:root_password_secret_tcp@tcp(mysql:3306)/todo-task?charset=utf8mb4&parseTime=True&loc=Local
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-service
+  namespace: todo-namespace
+spec:
+  ports:
+    - port: 3300
+      targetPort: 3300
+  selector:
+    app: task-service

@@ -1,0 +1,220 @@
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                            ResourceStatusReason
+--------------------------------  ------------------  --------------------------  -----------------------------------------------------------  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2024-12-16 14:21:00.627000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516
+2024-12-16 14:21:00.342000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  VPCStack
+2024-12-16 14:20:49.650000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  VPCStack
+2024-12-16 14:20:49.225000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  GateWayStack
+2024-12-16 14:19:25.742000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  NodeInstanceRoleStack
+2024-12-16 14:19:25.595000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  SecurityGroupStack
+2024-12-16 14:19:25.569000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  EKSRoleStack
+2024-12-16 14:19:14.988000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  NodeInstanceRoleStack
+2024-12-16 14:19:14.975000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  GateWayStack
+2024-12-16 14:19:14.937000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  EKSRoleStack
+2024-12-16 14:19:14.933000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  SecurityGroupStack
+2024-12-16 14:19:05.749000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  GateWayStack                                                 Resource creation cancelled
+2024-12-16 14:19:05.748000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  SecurityGroupStack                                           Resource creation cancelled
+2024-12-16 14:19:05.546000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516  User Initiated
+2024-12-16 14:18:35.245000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  GateWayStack                                                 Resource creation Initiated
+2024-12-16 14:18:35.227000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  SecurityGroupStack                                           Resource creation Initiated
+2024-12-16 14:18:34.565000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  GateWayStack
+2024-12-16 14:18:34.534000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  SecurityGroupStack
+2024-12-16 14:18:34.105000+00:00  CREATE_COMPLETE     AWS::CloudFormation::Stack  VPCStack
+2024-12-16 14:18:10.890000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  EKSRoleStack                                                 Embedded stack arn:aws:cloudformation:us-east-1:605134471711:stack/tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-EKSRoleStack-17ZK08STHRAE4/8dfcb460-bbb8-11ef-8518-125ed9f40263 was not successfully created: The following resource(s) failed to create: [EKSClusterRole].
+2024-12-16 14:18:10.818000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  NodeInstanceRoleStack                                        Embedded stack arn:aws:cloudformation:us-east-1:605134471711:stack/tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-NodeInstanceRoleStack-10K47SZKAB5AL/8df895b0-bbb8-11ef-9878-12b130659687 was not successfully created: The following resource(s) failed to create: [NodeInstanceRole].
+2024-12-16 14:18:00.526000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  VPCStack                                                     Resource creation Initiated
+2024-12-16 14:18:00.521000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  EKSRoleStack                                                 Resource creation Initiated
+2024-12-16 14:18:00.471000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  NodeInstanceRoleStack                                        Resource creation Initiated
+2024-12-16 14:17:59.862000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  VPCStack
+2024-12-16 14:17:59.847000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  EKSRoleStack
+2024-12-16 14:17:59.824000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  NodeInstanceRoleStack
+2024-12-16 14:17:57.379000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 09:21PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-EKSRoleStack-17ZK08STHRAE4
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                                       ResourceStatusReason
+--------------------------------  ------------------  --------------------------  --------------------------------------------------------------------------------------  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2024-12-16 14:19:17.551000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-EKSRoleStack-17ZK08STHRAE4
+2024-12-16 14:19:17.210000+00:00  DELETE_COMPLETE     AWS::IAM::Role              EKSClusterRole
+2024-12-16 14:19:15.278000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-EKSRoleStack-17ZK08STHRAE4  User Initiated
+2024-12-16 14:18:03.465000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-EKSRoleStack-17ZK08STHRAE4  The following resource(s) failed to create: [EKSClusterRole].
+2024-12-16 14:18:03.134000+00:00  CREATE_FAILED       AWS::IAM::Role              EKSClusterRole                                                                          final-21522490-EKSClusterRole already exists in stack arn:aws:cloudformation:us-east-1:605134471711:stack/final-21522490-EKSRoleStack-17KQX32G45G2P/3367e910-bbb4-11ef-bf26-0affdd7ab32f
+2024-12-16 14:18:02.661000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role              EKSClusterRole
+2024-12-16 14:18:00.385000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-EKSRoleStack-17ZK08STHRAE4  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 09:21PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-VPCStack-1S5QY8Z3TBD0C
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                                   ResourceStatusReason
+--------------------------------  ------------------  --------------------------  ----------------------------------------------------------------------------------  ---------------------------
+2024-12-16 14:20:55.991000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-VPCStack-1S5QY8Z3TBD0C
+2024-12-16 14:20:55.654000+00:00  DELETE_COMPLETE     AWS::EC2::VPC               VPC
+2024-12-16 14:20:54.018000+00:00  DELETE_IN_PROGRESS  AWS::EC2::VPC               VPC
+2024-12-16 14:20:53.286000+00:00  DELETE_COMPLETE     AWS::EC2::Subnet            PublicSubnet2
+2024-12-16 14:20:53.225000+00:00  DELETE_COMPLETE     AWS::EC2::Subnet            PublicSubnet1
+2024-12-16 14:20:53.181000+00:00  DELETE_COMPLETE     AWS::EC2::Subnet            PrivateSubnet2
+2024-12-16 14:20:53.180000+00:00  DELETE_COMPLETE     AWS::EC2::Subnet            PrivateSubnet1
+2024-12-16 14:20:52.016000+00:00  DELETE_IN_PROGRESS  AWS::EC2::Subnet            PublicSubnet1
+2024-12-16 14:20:51.959000+00:00  DELETE_IN_PROGRESS  AWS::EC2::Subnet            PrivateSubnet1
+2024-12-16 14:20:51.942000+00:00  DELETE_IN_PROGRESS  AWS::EC2::Subnet            PublicSubnet2
+2024-12-16 14:20:51.933000+00:00  DELETE_IN_PROGRESS  AWS::EC2::Subnet            PrivateSubnet2
+2024-12-16 14:20:50.015000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-VPCStack-1S5QY8Z3TBD0C  User Initiated
+2024-12-16 14:18:22.039000+00:00  CREATE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-VPCStack-1S5QY8Z3TBD0C
+2024-12-16 14:18:20.779000+00:00  CREATE_COMPLETE     AWS::EC2::Subnet            PublicSubnet2
+2024-12-16 14:18:20.448000+00:00  CREATE_COMPLETE     AWS::EC2::Subnet            PrivateSubnet1
+2024-12-16 14:18:20.338000+00:00  CREATE_COMPLETE     AWS::EC2::Subnet            PublicSubnet1
+2024-12-16 14:18:20.006000+00:00  CREATE_COMPLETE     AWS::EC2::Subnet            PrivateSubnet2
+2024-12-16 14:18:17.689000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet            PrivateSubnet1                                                                      Resource creation Initiated
+2024-12-16 14:18:17.650000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet            PublicSubnet2                                                                       Resource creation Initiated
+2024-12-16 14:18:17.499000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet            PublicSubnet1                                                                       Resource creation Initiated
+2024-12-16 14:18:17.374000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet            PrivateSubnet2                                                                      Resource creation Initiated
+2024-12-16 14:18:16.515000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet            PrivateSubnet1
+2024-12-16 14:18:16.489000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet            PublicSubnet2
+2024-12-16 14:18:16.486000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet            PublicSubnet1
+2024-12-16 14:18:16.463000+00:00  CREATE_IN_PROGRESS  AWS::EC2::Subnet            PrivateSubnet2
+2024-12-16 14:18:15.526000+00:00  CREATE_COMPLETE     AWS::EC2::VPC               VPC
+2024-12-16 14:18:04.628000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPC               VPC                                                                                 Resource creation Initiated
+2024-12-16 14:18:03.094000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPC               VPC
+2024-12-16 14:18:00.372000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-VPCStack-1S5QY8Z3TBD0C  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 09:21PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-NodeInstanceRoleStack-10K47SZKAB5AL
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                                                ResourceStatusReason
+--------------------------------  ------------------  --------------------------  -----------------------------------------------------------------------------------------------  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2024-12-16 14:19:18.120000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-NodeInstanceRoleStack-10K47SZKAB5AL
+2024-12-16 14:19:17.525000+00:00  DELETE_COMPLETE     AWS::IAM::Role              NodeInstanceRole
+2024-12-16 14:19:15.443000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-NodeInstanceRoleStack-10K47SZKAB5AL  User Initiated
+2024-12-16 14:18:03.149000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-NodeInstanceRoleStack-10K47SZKAB5AL  The following resource(s) failed to create: [NodeInstanceRole].
+2024-12-16 14:18:02.808000+00:00  CREATE_FAILED       AWS::IAM::Role              NodeInstanceRole                                                                                 final-21522490-NodeInstanceRole already exists in stack arn:aws:cloudformation:us-east-1:605134471711:stack/final-21522490-NodeInstanceRoleStack-1OVSN8ZSK4P8/335ff9d0-bbb4-11ef-acf2-0affcdc83055
+2024-12-16 14:18:02.562000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role              NodeInstanceRole
+2024-12-16 14:18:00.334000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-NodeInstanceRoleStack-10K47SZKAB5AL  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 09:21PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-SecurityGroupStack-11WZXZPJ6HO66
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                                             ResourceStatusReason
+--------------------------------  ------------------  --------------------------  --------------------------------------------------------------------------------------------  ---------------------------
+2024-12-16 14:19:20.490000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-SecurityGroupStack-11WZXZPJ6HO66
+2024-12-16 14:19:20.168000+00:00  DELETE_COMPLETE     AWS::EC2::SecurityGroup     PublicInstanceSecurityGroup
+2024-12-16 14:19:19.023000+00:00  DELETE_IN_PROGRESS  AWS::EC2::SecurityGroup     PublicInstanceSecurityGroup
+2024-12-16 14:19:18.680000+00:00  DELETE_COMPLETE     AWS::EC2::SecurityGroup     PrivateInstanceSecurityGroup
+2024-12-16 14:19:17.502000+00:00  DELETE_IN_PROGRESS  AWS::EC2::SecurityGroup     PrivateInstanceSecurityGroup
+2024-12-16 14:19:15.297000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-SecurityGroupStack-11WZXZPJ6HO66  User Initiated
+2024-12-16 14:18:59.175000+00:00  CREATE_COMPLETE     AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-SecurityGroupStack-11WZXZPJ6HO66
+2024-12-16 14:18:57.979000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup     PrivateInstanceSecurityGroup
+2024-12-16 14:18:49.403000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup     PrivateInstanceSecurityGroup                                                                  Resource creation Initiated
+2024-12-16 14:18:47.050000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup     PrivateInstanceSecurityGroup
+2024-12-16 14:18:46.571000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup     PublicInstanceSecurityGroup
+2024-12-16 14:18:40.152000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup     PublicInstanceSecurityGroup                                                                   Resource creation Initiated
+2024-12-16 14:18:37.696000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup     PublicInstanceSecurityGroup
+2024-12-16 14:18:35.083000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-SecurityGroupStack-11WZXZPJ6HO66  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 09:21PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-GateWayStack-1LBU2FKL5ZERU
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                    LogicalResourceId                                                                       ResourceStatusReason
+--------------------------------  ------------------  ------------------------------  --------------------------------------------------------------------------------------  ------------------------------------
+2024-12-16 14:20:37.451000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack      tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-GateWayStack-1LBU2FKL5ZERU
+2024-12-16 14:20:37.164000+00:00  DELETE_COMPLETE     AWS::EC2::EIP                   NatGatewayEIP2
+2024-12-16 14:20:35.686000+00:00  DELETE_IN_PROGRESS  AWS::EC2::EIP                   NatGatewayEIP2
+2024-12-16 14:20:35.314000+00:00  DELETE_COMPLETE     AWS::EC2::NatGateway            NatGateway2
+2024-12-16 14:20:11.032000+00:00  DELETE_COMPLETE     AWS::EC2::EIP                   NatGatewayEIP1
+2024-12-16 14:20:09.488000+00:00  DELETE_IN_PROGRESS  AWS::EC2::EIP                   NatGatewayEIP1
+2024-12-16 14:20:09.105000+00:00  DELETE_COMPLETE     AWS::EC2::NatGateway            NatGateway1
+2024-12-16 14:19:23.815000+00:00  DELETE_COMPLETE     AWS::EC2::InternetGateway       InternetGateway
+2024-12-16 14:19:22.770000+00:00  DELETE_IN_PROGRESS  AWS::EC2::InternetGateway       InternetGateway
+2024-12-16 14:19:22.397000+00:00  DELETE_COMPLETE     AWS::EC2::VPCGatewayAttachment  AttachGateway
+2024-12-16 14:19:21.304000+00:00  DELETE_IN_PROGRESS  AWS::EC2::NatGateway            NatGateway2
+2024-12-16 14:19:21.291000+00:00  DELETE_IN_PROGRESS  AWS::EC2::VPCGatewayAttachment  AttachGateway
+2024-12-16 14:19:21.289000+00:00  DELETE_IN_PROGRESS  AWS::EC2::NatGateway            NatGateway1
+2024-12-16 14:19:15.802000+00:00  CREATE_FAILED       AWS::EC2::NatGateway            NatGateway1                                                                             Resource creation cancelled
+2024-12-16 14:19:15.791000+00:00  CREATE_FAILED       AWS::EC2::NatGateway            NatGateway2                                                                             Resource creation cancelled
+2024-12-16 14:19:15.348000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack      tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-GateWayStack-1LBU2FKL5ZERU  User Initiated
+2024-12-16 14:18:54.178000+00:00  CREATE_COMPLETE     AWS::EC2::EIP                   NatGatewayEIP2
+2024-12-16 14:18:54.062000+00:00  CREATE_COMPLETE     AWS::EC2::EIP                   NatGatewayEIP1
+2024-12-16 14:18:53.625000+00:00  CREATE_COMPLETE     AWS::EC2::InternetGateway       InternetGateway
+2024-12-16 14:18:49.969000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack      tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-GateWayStack-1LBU2FKL5ZERU  Eventual consistency check initiated
+2024-12-16 14:18:49.817000+00:00  CREATE_IN_PROGRESS  AWS::EC2::NatGateway            NatGateway1                                                                             Eventual consistency check initiated
+2024-12-16 14:18:49.752000+00:00  CREATE_IN_PROGRESS  AWS::EC2::NatGateway            NatGateway2                                                                             Eventual consistency check initiated
+2024-12-16 14:18:41.727000+00:00  CREATE_COMPLETE     AWS::EC2::VPCGatewayAttachment  AttachGateway
+2024-12-16 14:18:40.867000+00:00  CREATE_IN_PROGRESS  AWS::EC2::NatGateway            NatGateway1                                                                             Resource creation Initiated
+2024-12-16 14:18:40.625000+00:00  CREATE_IN_PROGRESS  AWS::EC2::NatGateway            NatGateway2                                                                             Resource creation Initiated
+2024-12-16 14:18:39.847000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPCGatewayAttachment  AttachGateway                                                                           Resource creation Initiated
+2024-12-16 14:18:39.798000+00:00  CREATE_IN_PROGRESS  AWS::EC2::NatGateway            NatGateway1
+2024-12-16 14:18:39.582000+00:00  CREATE_IN_PROGRESS  AWS::EC2::NatGateway            NatGateway2
+2024-12-16 14:18:39.263000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP                   NatGatewayEIP1                                                                          Eventual consistency check initiated
+2024-12-16 14:18:39.084000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP                   NatGatewayEIP2                                                                          Eventual consistency check initiated
+2024-12-16 14:18:39.005000+00:00  CREATE_IN_PROGRESS  AWS::EC2::VPCGatewayAttachment  AttachGateway
+2024-12-16 14:18:38.731000+00:00  CREATE_IN_PROGRESS  AWS::EC2::InternetGateway       InternetGateway                                                                         Eventual consistency check initiated
+2024-12-16 14:18:38.517000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP                   NatGatewayEIP1                                                                          Resource creation Initiated
+2024-12-16 14:18:38.450000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP                   NatGatewayEIP2                                                                          Resource creation Initiated
+2024-12-16 14:18:38.163000+00:00  CREATE_IN_PROGRESS  AWS::EC2::InternetGateway       InternetGateway                                                                         Resource creation Initiated
+2024-12-16 14:18:37.488000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP                   NatGatewayEIP1
+2024-12-16 14:18:37.364000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP                   NatGatewayEIP2
+2024-12-16 14:18:37.319000+00:00  CREATE_IN_PROGRESS  AWS::EC2::InternetGateway       InternetGateway
+2024-12-16 14:18:35.081000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack      tCaT-final-21522490-mytest-c93983f7df97405ba6c204984d5f3516-GateWayStack-1LBU2FKL5ZERU  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 16. December 2024 09:21PM
+-----------------------------------------------------------------------------
+

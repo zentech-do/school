@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: todo-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: hongquan181203/nt548:profile-service
+          ports:
+            - containerPort: 3200
+            - containerPort: 3201
+          env:
+            - name: DB_DSN
+              value: root:root_password_secret_tcp@tcp(mysql:3306)/todo-user?charset=utf8mb4&parseTime=True&loc=Local
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: todo-namespace
+spec:
+  ports:
+    - name: http
+      port: 3200
+      targetPort: 3200
+    - name: grpc
+      port: 3201
+      targetPort: 3201
+  selector:
+    app: user-service

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-fe
+  namespace: todo-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-fe
+  template:
+    metadata:
+      labels:
+        app: todo-fe
+    spec:
+      containers:
+        - name: todo-fe
+          image: hongquan181203/nt548:todo-fe
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-fe
+  namespace: todo-namespace
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: todo-fe

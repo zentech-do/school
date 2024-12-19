@@ -1,11 +1,26 @@
+#!/bin/bash
 
-aws ecr create-repository \
---repository-name 21522490-final \
---region us-east-1
+# Load environment variables from .env file
+if [ -f scripts/.image.env ]; then
+    export $(cat scripts/.image.env | xargs)
+else
+    echo ".image.env file not found. Please create one with DOCKER_USERNAME and DOCKER_PASSWORD."
+    exit 1
+fi
 
-aws ecr get-login-password --region us-east-1 \
-| docker login --username AWS --password-stdin 605134471711.dkr.ecr.us-east-1.amazonaws.com
+# Step 1: Log in to Docker Hub
+docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
 
-docker tag placeholder-app 605134471711.dkr.ecr.us-east-1.amazonaws.com/21522490-final:latest
+# Step 2: Tag each service image for the same repository
+docker tag auth-service $DOCKER_USERNAME/$DOCKER_REPOSITORY_NAME:auth-service
+docker tag profile-service $DOCKER_USERNAME/$DOCKER_REPOSITORY_NAME:profile-service
+docker tag task-service $DOCKER_USERNAME/$DOCKER_REPOSITORY_NAME:task-service
+docker tag todo-fe $DOCKER_USERNAME/$DOCKER_REPOSITORY_NAME:todo-fe
 
-docker push 605134471711.dkr.ecr.us-east-1.amazonaws.com/21522490-final:latest
+# Step 3: Push each tagged image to the repository
+docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY_NAME:auth-service
+docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY_NAME:profile-service
+docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY_NAME:task-service
+docker push $DOCKER_USERNAME/$DOCKER_REPOSITORY_NAME:todo-fe
+
+echo "All service images pushed successfully into $DOCKER_USERNAME/$DOCKER_REPOSITORY_NAME!"

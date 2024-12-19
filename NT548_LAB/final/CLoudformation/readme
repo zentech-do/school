@@ -1,0 +1,22 @@
+1. Đi vào thư mục cloudformation:
+
+   ```
+       cd NT548_LAB/final/Cloudformation
+
+   ```
+
+2. Trong mục script tao một file .image.env gồm các biến: DOCKER_USERNAME, DOCKER_PASSWORD, DOCKER_REPOSITORY_NAME=nt548 và DOCKEREMAIL
+
+3. Chạy các script:
+
+   - create_s3bucket.sh: dùng để tạo s3 bucket chứa các file yaml (chủ yếu quan tâm các file trong thư mục modules)
+   - build_image.sh: dùng để tạo image của 4 main service
+   - push_image.sh: dùng để đẩy lên docker-hub (nhớ chỉnh sửa file yaml để pull)
+   - run_taskcat.sh: dùng để push file và test cloudformation (phải chạy file này để push file lên)
+   - create_stack.sh: dùng để deploy cloud service trong thư mục modules: EKS, VPC, SG, ...
+   - apply_on_k8s.sh: sau khi đã create stack thành công, deploy micro-service lên k8s
+   - delete_stack.sh: để xoá stack (có thể có vấn đề ở bước xoá namespace vì một lý do gì đó nó bị đứng chứ không xoá hết, nên chỉ cần ở phần EC2 Loadbalancer không còn cái nào. Thì có thể ngưng script và huỷ trên interface)
+   - delete_s3bucket.sh: để xoá s3 bucket
+
+4. file env.json:
+   - Chứa project name: có thể đổi, nhưng một vài script sẽ bị lỗi vì là hard code =))). Hầu hết lỗi ở nhugnwx script xoá.
