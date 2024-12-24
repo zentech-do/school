@@ -8,7 +8,10 @@ stack_name="${ProjectName}"
 
 # -------------------------------- Delete K8s Resources -----------------------------------------
 
-
+# kubectl delete pv grafana-pv
+# kubectl delete pv mysql-pv
+# kubectl delete pv prometheus-pv
+# kubectl delete pv redis-pv
 kubectl delete namespace todo-namespace
 
 
