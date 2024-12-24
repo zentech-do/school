@@ -24,8 +24,7 @@ kubectl create secret docker-registry regcred \
 # kubectl apply -f k8s_configure/namespace.yaml
 # kubectl apply -f k8s_configure/container_deploy.yaml
 # kubectl apply -f k8s_configure/service.yaml
-# kubectl apply -f k8s_configure/ingressclass.yaml
-# kubectl apply -f k8s_configure/ingress.yaml
+
 
 
 #Tạo namespace
@@ -58,3 +57,7 @@ kubectl apply -f app/k8s/infrastructure/monitoring.yaml
 #Autoscaling
 kubectl apply -f app/k8s/infrastructure/hpa.yaml
 kubectl apply -f app/k8s/infrastructure/metrics-server
+
+#Ingress
+kubectl apply -f app/k8s/infrastructure/ingressclass.yaml
+kubectl apply -f app/k8s/infrastructure/ingress.yaml

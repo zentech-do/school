@@ -18,8 +18,10 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy # Provides access to EKS
         - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly # Allows read access to ECR
-        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy # Required for the Amazon VPC CNI plugin
-        - arn:aws:iam::aws:policy/AmazonEC2FullAccess # Provides full EC2 permissions, including EBS
+        - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy # Added: Required for the Amazon VPC CNI plugin
+        # - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess # Optional: Allows read-only access to S3
+        # - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess # Optional: Allows writing to CloudWatch logs
+        # - arn:aws:iam::aws:policy/AmazonVPCFullAccess # Optional: Allows managing VPCs and related components
 
 Outputs:
   NodeInstanceRoleArn:

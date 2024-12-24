@@ -17,6 +17,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: service-fastapi-placeholder
+                name: todo-fe # Traffic routed to services_1
                 port:
                   number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana # Traffic routed to services_2
+                port:
+                  number: 3000

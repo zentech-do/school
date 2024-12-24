@@ -1,11 +1,11 @@
 project:
-  name: final-21522490
+  name: final1-21522490
   regions:
     - us-east-1
-  s3_bucket: final-21522490-bucket
+  s3_bucket: final1-21522490-bucket
 
 tests:
   mytest:
     template: ./modules/parent_stack.yaml
     parameters:
-      ProjectName: final-21522490
+      ProjectName: final1-21522490
